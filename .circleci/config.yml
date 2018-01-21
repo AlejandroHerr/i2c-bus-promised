@@ -1,4 +1,7 @@
 version: 2
+dependencies:
+  pre:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 jobs:
   build:
     docker:
@@ -6,7 +9,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: update-npm
+         name: update-npm
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -29,3 +32,8 @@ jobs:
       - run:
           name: lint
           command: yarn lint
+  deployment:
+    npm:
+      tag: /v[0-9]+(\.[0-9]+)*/
+          commands:
+        - npm publish
