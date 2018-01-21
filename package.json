@@ -42,11 +42,7 @@
     "flow-bin": "^0.63.1",
     "flow-copy-source": "^1.2.1",
     "flow-typed": "^2.2.3",
-    "husky": "^0.14.3",
     "mocha": "^4.1.0",
-    "rollup": "^0.54.1",
-    "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-flow": "^1.1.1",
     "sinon": "^4.1.4",
     "sinon-chai": "^2.14.0"
   },
