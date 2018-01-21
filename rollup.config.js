@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import flow from 'rollup-plugin-flow';
 import babel from 'rollup-plugin-babel';
 import babelrc from 'babelrc-rollup';
