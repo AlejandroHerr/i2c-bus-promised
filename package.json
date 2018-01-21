@@ -7,7 +7,7 @@
   "author": "Alejandro Hernandez <ahernandezc@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV=\"production\" rollup -c",
+    "build": "NODE_ENV=\"production\" babel -d lib src",
     "document": "documentation build src/** -f md -o API.md",
     "example": "NODE_PATH=./src node -r babel-register -r babel-polyfill examples/index.js",
     "flow": "flow check",
