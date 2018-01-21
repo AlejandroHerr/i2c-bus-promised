@@ -1,3 +1,4 @@
+// @flow
 import Bus from './Bus';
 import Device from './Device';
 
