@@ -1,23 +1,78 @@
+
+defaults: &defaults
+  working_directory: ~/i2c-bus-promised
+  docker:
+    - image: circleci/node:8.9-stretch
+
+whitelist: &whitelist
+  paths:
+    - .gitignore
+    - coverage/*
+    - lib/*
+    - node_modules/*
+    - src/*
+    - test/*
+    - flow-typed/*
+    - CODE_OF_CONDUCT.md
+    - LICENSE.md
+    - package.json
+    - README.md
+    - API.md
+    - .eslintignore
+    - .eslintrc
+    - .flowconfig
+    - rollup.config.js
+
 version: 2
 jobs:
+  checkout:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache--{{ checksum "package.json" }}
+          - dependency-cache--
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependency-cache--{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ~/i2c-bus-promised
+          <<: *whitelist
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/i2c-bus-promised
+      - run:
+          name: Flow-Typed
+          command: yarn flow-typed
+      - run:
+          name: Flow
+          command: yarn flow
+      - run:
+          name: Eslint
+          command: yarn lint
   build:
-    docker:
-      - { image: 'circleci/node:8.9-stretch' }
+    <<: *defaults
     steps:
-      - checkout
-      - { run: { name: update-npm, command: 'sudo npm install -g npm@latest' } }
-      - { restore_cache: { key: 'dependency-cache-{{ checksum "package.json" }}' } }
-      - { run: { name: 'install yarn', command: 'sudo npm i -g yarn' } }
-      - { run: { name: 'install deps', command: 'yarn install' } }
-      - { save_cache: { key: 'dependency-cache-{{ checksum "package.json" }}', paths: [./node_modules] } }
-      - { run: { name: flow-typed, command: 'yarn flow-typed' } }
-      - { run: { name: flow, command: 'yarn flow' } }
-      - { run: { name: lint, command: 'yarn lint' } }
+      - attach_workspace:
+          at: ~/i2c-bus-promised
+      - run:
+          name: Build
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/i2c-bus-promised
+          <<: *whitelist
   deploy:
-    docker:
-      - { image: 'circleci/node:8.9-stretch' }
+    <<: *defaults
+    - attach_workspace:
+          at: ~/i2c-bus-promised
     steps:
-      - checkout
       - { run: { name: 'Write NPM Token to ~/.npmrc', command: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc' } }
       - { run: { name: 'yarn build', command: 'yarn build' } }
       - { run: { name: 'Publish to NPM', command: 'npm publish --access=public' } }
@@ -25,7 +80,13 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - checkout
+      - lint:
+          requires:
+            - checkout
+      - build:
+          requires:
+            - checkout
       - deploy:
           requires:
             - build
