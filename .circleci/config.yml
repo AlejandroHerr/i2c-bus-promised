@@ -57,6 +57,9 @@ jobs:
       - run:
           name: Eslint
           command: yarn lint
+      - persist_to_workspace:
+          root: ~/i2c-bus-promised
+          <<: *whitelist
   build:
     <<: *defaults
     steps:
@@ -70,9 +73,9 @@ jobs:
           <<: *whitelist
   deploy:
     <<: *defaults
-    - attach_workspace:
-          at: ~/i2c-bus-promised
     steps:
+      - attach_workspace:
+          at: ~/i2c-bus-promised
       - { run: { name: 'Write NPM Token to ~/.npmrc', command: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc' } }
       - { run: { name: 'yarn build', command: 'yarn build' } }
       - { run: { name: 'Publish to NPM', command: 'npm publish --access=public' } }
