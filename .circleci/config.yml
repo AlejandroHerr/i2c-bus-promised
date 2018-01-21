@@ -22,6 +22,7 @@ whitelist: &whitelist
     - .eslintrc
     - .flowconfig
     - rollup.config.js
+    - .babelrc
 
 version: 2
 jobs:
