@@ -1,7 +1,5 @@
 import Bus from './Bus';
 import Device from './Device';
 
-export {
-  Bus,
-  Device,
-};
+export const I2cBus = Bus;
+export const I2cDevice = Device;
