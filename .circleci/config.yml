@@ -53,9 +53,6 @@ jobs:
           name: Flow-Typed
           command: yarn flow-typed
       - run:
-          name: Flow
-          command: yarn flow
-      - run:
           name: Eslint
           command: yarn lint
   build:
@@ -69,7 +66,7 @@ jobs:
       - persist_to_workspace:
           root: ~/i2c-bus-promised
           <<: *whitelist
-  deploy:
+  publish:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -87,10 +84,13 @@ workflows:
       - build:
           requires:
             - checkout
-      - deploy:
+      - publish:
           requires:
             - build
             - lint
           filters:
+            filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
             branches:
-              only: master
+              ignore: /.*/
