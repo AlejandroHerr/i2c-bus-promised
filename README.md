@@ -2,4 +2,4 @@
 Wrapper for [i2c-bus](https://github.com/fivdi/i2c-bus), with promised functions.
 
 ## Documentation
-[API]](API.md)
+[API](API.md)

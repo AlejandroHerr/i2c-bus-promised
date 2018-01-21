@@ -11,7 +11,7 @@
     "flow": "flow check",
     "flow-typed": "flow-typed install --overwrite || true",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
-    "precommit": "yarn lint && yarn document",
+    "prepush": "yarn lint && yarn document",
     "test": "NODE_ENV=\"testing\" NODE_PATH=./src mocha -r babel-register --recursive src/**/*.spec.js",
     "test-watch": "npm test -- --watch"
   },
