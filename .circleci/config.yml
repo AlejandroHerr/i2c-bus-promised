@@ -1,40 +1,23 @@
 version: 2
-
 jobs:
-  dependencies:
-    pre:
-      - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
   build:
     docker:
-      - image: circleci/node:8.9-stretch
+      - { image: 'circleci/node:8.9-stretch' }
     steps:
       - checkout
-      - run:
-         name: update-npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: install yarn
-          command: sudo npm i -g yarn
-      - run:
-          name: install deps
-          command: yarn install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: flow-typed
-          command: yarn flow-typed
-      - run:
-          name: flow
-          command: yarn flow
-      - run:
-          name: lint
-          command: yarn lint
-  deployment:
-    npm:
-      tag: /v[0-9]+(\.[0-9]+)*/
-          commands:
-        - npm publish
+      - { run: { name: update-npm, command: 'sudo npm install -g npm@latest' } }
+      - { restore_cache: { key: 'dependency-cache-{{ checksum "package.json" }}' } }
+      - { run: { name: 'install yarn', command: 'sudo npm i -g yarn' } }
+      - { run: { name: 'install deps', command: 'yarn install' } }
+      - { save_cache: { key: 'dependency-cache-{{ checksum "package.json" }}', paths: [./node_modules] } }
+      - { run: { name: flow-typed, command: 'yarn flow-typed' } }
+      - { run: { name: flow, command: 'yarn flow' } }
+      - { run: { name: lint, command: 'yarn lint' } }
+  deploy:
+    docker:
+      - { image: 'circleci/node:8.9-stretch' }
+    steps:
+      - checkout
+      - { run: { name: 'Write NPM Token to ~/.npmrc', command: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc' } }
+      - { run: { name: 'yarn build', command: 'yarn build' } }
+      - { run: { name: 'Publish to NPM', command: 'npm publish --access=public' } }
