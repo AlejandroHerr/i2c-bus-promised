@@ -1,7 +1,7 @@
 {
-  "name": "enviro-phat.js",
+  "name": "i2c-bus-promised",
   "version": "0.0.1",
-  "description": "Enviro Phat js library",
+  "description": "Promised wrapper for i2c-bus",
   "main": "index.js",
   "author": "Alejandro Hernandez <ahernandezc@protonmail.com>",
   "license": "MIT",
