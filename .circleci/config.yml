@@ -19,7 +19,7 @@ whitelist: &whitelist
     - README.md
     - API.md
     - .eslintignore
-    - .eslintrc
+    - .eslintrc.js
     - .flowconfig
     - rollup.config.js
     - .babelrc
@@ -94,6 +94,7 @@ workflows:
       - deploy:
           requires:
             - build
+            - lint
           filters:
             branches:
               only: master
