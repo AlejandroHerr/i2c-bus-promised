@@ -6,11 +6,13 @@
   "author": "Alejandro Hernandez <ahernandezc@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "document": "documentation build src/** -f md -o API.md",
+    "example": "NODE_PATH=./src node -r babel-register -r babel-polyfill examples/index.js",
     "flow": "flow check",
     "flow-typed": "flow-typed install --overwrite || true",
+    "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "precommit": "yarn lint && yarn document",
     "test": "NODE_ENV=\"testing\" NODE_PATH=./src mocha -r babel-register --recursive src/**/*.spec.js",
-    "demo": "NODE_ENV=\"development\" NODE_PATH=./src node -r babel-register -r babel-polyfill examples/temp.js",
     "test-watch": "npm test -- --watch"
   },
   "devDependencies": {
@@ -23,6 +25,7 @@
     "chai-as-promised": "^7.1.1",
     "chai-string": "^1.4.0",
     "dirty-chai": "^2.0.1",
+    "documentation": "^5.3.5",
     "eslint": "^4.15.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-formatter-pretty": "^1.3.0",
