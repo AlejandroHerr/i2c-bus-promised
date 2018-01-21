@@ -21,14 +21,11 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: lint
-          command: yarn lint
-      - run:
           name: flow-typed
           command: yarn flow-typed
       - run:
           name: flow
           command: yarn flow
       - run:
-          name: test
-          command: yarn test
+          name: lint
+          command: yarn lint
