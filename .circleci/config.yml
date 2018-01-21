@@ -90,4 +90,4 @@ workflows:
             - lint
           filters:
             branches:
-              only: master
+              only: publish
