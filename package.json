@@ -63,5 +63,10 @@
     "bluebird": "^3.5.1",
     "i2c-bus": "^1.2.5",
     "p-queue": "^2.3.0"
+  },
+  "release": {
+    "verifyConditions": ["@semantic-release/changelog", "@semantic-release/npm", "@semantic-release/git", "@semantic-release/github"],
+    "getLastRelease": "@semantic-release/npm",
+    "publish": ["@semantic-release/changelog", "@semantic-release/npm", "@semantic-release/git", "@semantic-release/github"]
   }
 }
