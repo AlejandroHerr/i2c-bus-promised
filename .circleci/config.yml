@@ -6,6 +6,7 @@ defaults: &defaults
 
 whitelist: &whitelist
   paths:
+    - .git/
     - .gitignore
     - coverage/*
     - lib/*
