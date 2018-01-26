@@ -22,8 +22,8 @@ whitelist: &whitelist
     - .eslintignore
     - .eslintrc.js
     - .flowconfig
-    - rollup.config.js
     - .babelrc
+    - release.config.js
 
 version: 2
 jobs:
@@ -74,6 +74,14 @@ jobs:
           at: ~/i2c-bus-promised
       - { run: { name: 'Write NPM Token to ~/.npmrc', command: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc' } }
       - { run: { name: 'Publish to NPM', command: 'npm publish --access=public' } }
+  release:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/i2c-bus-promised
+      - run:
+          name: Semantic relearse
+          command: yarn semantic-release
 workflows:
   version: 2
   build_and_test:
@@ -85,10 +93,11 @@ workflows:
       - build:
           requires:
             - checkout
-      - publish:
+      - release:
           requires:
             - build
             - lint
           filters:
             branches:
-              only: publish
+              only: master
+
