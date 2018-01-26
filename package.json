@@ -27,6 +27,7 @@
     "test-watch": "npm test -- --watch"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^1.0.0",
     "@semantic-release/git": "^2.0.3",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

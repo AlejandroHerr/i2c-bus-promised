@@ -67,6 +67,14 @@
     proxy-from-env "^1.0.0"
     url-template "^2.0.8"
 
+"@semantic-release/changelog@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-1.0.0.tgz#df918410ec04c72fed8328b8f583f4a2667b7584"
+  dependencies:
+    "@semantic-release/error" "^2.1.0"
+    fs-extra "^5.0.0"
+    lodash "^4.17.4"
+
 "@semantic-release/commit-analyzer@^5.0.0":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@semantic-release/commit-analyzer/-/commit-analyzer-5.0.1.tgz#1af758537b2a366e18d71fd398764170cbfdb567"
