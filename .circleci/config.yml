@@ -92,10 +92,10 @@ workflows:
       - build:
           requires:
             - checkout
-      - publish:
+      - release:
           requires:
             - build
             - lint
           filters:
             branches:
-              only: publish
+              only: master
