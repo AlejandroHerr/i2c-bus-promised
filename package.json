@@ -27,6 +27,7 @@
     "test-watch": "npm test -- --watch"
   },
   "devDependencies": {
+    "@semantic-release/git": "^2.0.3",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -65,8 +66,18 @@
     "p-queue": "^2.3.0"
   },
   "release": {
-    "verifyConditions": ["@semantic-release/changelog", "@semantic-release/npm", "@semantic-release/git", "@semantic-release/github"],
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ],
     "getLastRelease": "@semantic-release/npm",
-    "publish": ["@semantic-release/changelog", "@semantic-release/npm", "@semantic-release/git", "@semantic-release/github"]
+    "publish": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
   }
 }

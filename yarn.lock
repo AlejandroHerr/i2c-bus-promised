@@ -85,6 +85,22 @@
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@semantic-release/error/-/error-2.1.0.tgz#44771f676f5b148da309111285a97901aa95a6e0"
 
+"@semantic-release/git@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@semantic-release/git/-/git-2.0.3.tgz#4348a525ec6dfeb9c43ab4ee8d06813583d05644"
+  dependencies:
+    "@semantic-release/error" "^2.1.0"
+    debug "^3.1.0"
+    dir-glob "^2.0.0"
+    execa "^0.9.0"
+    fs-extra "^5.0.0"
+    git-url-parse "^8.0.0"
+    lodash "^4.17.4"
+    micromatch "^3.1.4"
+    p-locate "^2.0.0"
+    p-reduce "^1.0.0"
+    semver "^5.4.1"
+
 "@semantic-release/github@^3.0.1":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-3.0.3.tgz#a986fa36111a34b3cc42b1a7f41fe4f019df570b"
@@ -4290,7 +4306,7 @@ micromatch@^2.1.5:
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
 
-micromatch@^3.0.0:
+micromatch@^3.0.0, micromatch@^3.1.4:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-3.1.5.tgz#d05e168c206472dfbca985bfef4f57797b4cd4ba"
   dependencies:
