@@ -1,6 +1,6 @@
 {
   "name": "i2c-bus-promised",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "Promised wrapper for i2c-bus",
   "main": "lib/index.js",
   "module": "lib/i2c-bus-promised.js",
