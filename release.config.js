@@ -1,7 +1,7 @@
 module.exports = {
   analyzeCommits: {
     preset: 'eslint',
-    parserOpts: { // optional, only you want to have emoji commit support
+    parserOpts: {
       headerPattern: /^(?::([\w-]*):)?\s*(\w*):\s*(.*)$/,
       headerCorrespondence: [
         'emoji',
@@ -12,7 +12,7 @@ module.exports = {
   },
   generateNotes: {
     preset: 'eslint',
-    parserOpts: { // optional, only you want to have emoji commit support
+    parserOpts: {
       headerPattern: /^(?::([\w-]*):)?\s*(\w*):\s*(.*)$/,
       headerCorrespondence: [
         'emoji',
