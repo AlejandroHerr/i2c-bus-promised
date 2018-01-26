@@ -7,23 +7,22 @@ defaults: &defaults
 whitelist: &whitelist
   paths:
     - .git/
-    - .gitignore
-    - coverage/*
-    - lib/*
+    - flow-typed/*
     - node_modules/*
     - src/*
     - test/*
-    - flow-typed/*
-    - CODE_OF_CONDUCT.md
-    - LICENSE.md
-    - package.json
-    - README.md
-    - API.md
+    - .babelrc
     - .eslintignore
     - .eslintrc.js
     - .flowconfig
-    - .babelrc
+    - .gitignore
+    - API.md
+    - LICENSE.md
+    - package.json
+    - README.md
     - release.config.js
+    - yarn.lock
+    
 
 version: 2
 jobs:
@@ -51,10 +50,10 @@ jobs:
       - attach_workspace:
           at: ~/i2c-bus-promised
       - run:
-          name: Flow-Typed
+          name: Install Flow-Typed
           command: yarn flow-typed
       - run:
-          name: Eslint
+          name: Eslint check
           command: yarn lint
   build:
     <<: *defaults
@@ -64,7 +63,7 @@ jobs:
       - run:
           name: Build
           command: yarn build
-      - persist_to_workspace:
+       - persist_to_workspace:
           root: ~/i2c-bus-promised
           <<: *whitelist
   publish:
@@ -80,7 +79,7 @@ jobs:
       - attach_workspace:
           at: ~/i2c-bus-promised
       - run:
-          name: Semantic relearse
+          name: Semantic Release
           command: yarn semantic-release
 workflows:
   version: 2
