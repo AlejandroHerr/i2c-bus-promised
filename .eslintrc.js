@@ -6,15 +6,9 @@ module.exports = {
     mocha: true,
   },
   rules: {
-    'no-bitwise': ['error', { allow: ['|', '<<', '>>>'] }],
-    'flowtype/boolean-style': [
-      2,
-      'boolean',
-    ],
-    'flowtype/define-flow-type': 1,
     'flowtype/delimiter-dangle': [
       2,
-      'never',
+      'always-multiline',
     ],
     'flowtype/generic-spacing': [
       2,
