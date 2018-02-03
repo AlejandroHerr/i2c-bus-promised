@@ -4,6 +4,9 @@ import i2c from 'i2c-bus';
 import Bluebird from 'bluebird';
 import PQueue from 'p-queue';
 
+import BusError from './error/BusError';
+import * as ERROR_CODES from './error/codes';
+
 import type { BitType, ByteType, WordType, AddrType, CmdType } from './types';
 
 /**
@@ -30,7 +33,7 @@ export default class Bus {
     return new Bluebird((resolve: Function, reject: Function) => {
       this.bus = Bluebird.promisifyAll(i2c.open(this.busNumber, (error: Error) => {
         if (error) {
-          reject(new Error(`Error opening i2c bus: ${error.message}`));
+          reject(new BusError(`Error opening i2c bus: ${error.message}`, ERROR_CODES.OPENING_FAILURE, error));
         }
 
         resolve();
@@ -46,10 +49,26 @@ export default class Bus {
   addToQueue(fn: string, ...args: Array<*>): Promise<*> {
     return this.queue.add(() => {
       if (!this.bus) {
-        throw new Error('Bus is not open');
+        throw new BusError('Bus is not open', ERROR_CODES.NOT_OPEN);
       }
 
-      this.bus[fn](...args);
+      return this.bus[fn](...args)
+        .catch((error: Error) => {
+          /* If it doesn't have a cause is not an i2c-bus error, throw it */
+          if (!error.cause || !(error.cause instanceof Error)) {
+            throw error;
+          }
+
+          if (error.errno && error.errno === -2) {
+            throw new BusError('i2c bus not found', ERROR_CODES.NOT_FOUND, error.cause);
+          }
+
+          if (error.errno && error.errno === 121) {
+            throw new BusError('i2c bus IO error', ERROR_CODES.IO_ERROR, error.cause);
+          }
+
+          throw new BusError(error.message, ERROR_CODES.GENERIC, error.cause);
+        });
     });
   }
 
