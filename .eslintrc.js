@@ -6,6 +6,7 @@ module.exports = {
     jest: true,
   },
   rules: {
+    'no-bitwise': 0,
     'flowtype/delimiter-dangle': [
       2,
       'always-multiline',
