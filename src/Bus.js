@@ -42,7 +42,7 @@ export default class Bus {
   }
 
   /**
-   * Adds operation to the promise queue.
+   * Adds operation to the promise queue. Do **not** call this function directly.
    *
    * @throws {BusError} If the bus connection is not open
    */
