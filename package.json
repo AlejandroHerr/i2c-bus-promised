@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=\"production\" babel -d lib src",
-    "documentation": "documentation build src/** -f md -o API.md",
+    "documentation": "documentation build src/** -f md -o API.md --config documentation.yml",
     "document": "yarn mos && yarn documentation",
     "example": "NODE_PATH=./src node -r babel-register -r babel-polyfill examples/index.js",
     "flow": "flow check",
@@ -37,7 +37,6 @@
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.26.0",
     "conventional-changelog-eslint": "^0.3.0",
-    "cross-spawn": "^6.0.4",
     "documentation": "^5.3.5",
     "eslint": "^4.15.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -67,8 +66,6 @@
     "moduleDirectories": [
       "node_modules"
     ],
-    "setupFiles": [
-      "<rootDir>/test/setup.js"
-    ]
+    "testRegex": "src\\/[^\\/]+.+\\.spec\\.js$"
   }
 }
