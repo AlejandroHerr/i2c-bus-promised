@@ -10,7 +10,7 @@ import * as ERROR_CODES from './error/codes';
 import type { BitType, ByteType, WordType, AddrType, CmdType } from './types';
 
 /**
- * i2c Bus class.
+ * i2c Bus class. Wraps and promises the original `i2c-bus` library.
  * All the functions are promised and run through a queue without concurrency,
  * to prevent multiple access to the i2c bus.
  */
