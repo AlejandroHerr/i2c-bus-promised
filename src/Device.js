@@ -4,6 +4,7 @@ import type { BitType, ByteType, WordType, AddrType, CmdType } from './types';
 
 /**
  * i2c device base class.
+ * Represents an i2c device connected to the i2c bus.
  */
 export default class Device {
   address: AddrType;
