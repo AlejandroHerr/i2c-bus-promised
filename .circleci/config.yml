@@ -19,6 +19,7 @@ whitelist: &whitelist
     - .flowconfig
     - .gitignore
     - API.md
+    - documentantion.yml
     - LICENSE.md
     - package.json
     - README.md
