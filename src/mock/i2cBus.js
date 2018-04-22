@@ -2,7 +2,7 @@
 /* eslint-disable flowtype/no-weak-types */
 import { createIOError, createNotFoundError } from './helpers';
 
-import type { AddrType, CmdType, ByteType, WordType } from '../types';
+import type { AddrType, CmdType, BitType, ByteType, WordType } from '../types';
 import type { PhysicalBusMockType } from './types';
 
 const checkConnection = (physicalBus: PhysicalBusMockType, busNumber: number, addr?: AddrType) => {
@@ -100,6 +100,27 @@ export default (physicalBus: PhysicalBusMockType, busNumber: number = 1) => {
         return cb(error);
       }
     },
+    receiveByte: (addr: AddrType, cb: Function) => {
+      try {
+        checkConnection(physicalBus, busNumber, addr);
+
+        return cb(null, devices[addr][0]);
+      } catch (error) {
+        return cb(error);
+      }
+    },
+
+    writeQuick: (addr: AddrType, bit: BitType, cb: Function) => {
+      try {
+        checkConnection(physicalBus, busNumber, addr);
+
+        devices[addr][0] = devices[addr][0] & 0xFE | 0x01 & bit;
+
+        return cb(null);
+      } catch (error) {
+        return cb(error);
+      }
+    },
     writeByte: (addr: AddrType, cmd: CmdType, byte: ByteType, cb: Function) => {
       try {
         checkConnection(physicalBus, busNumber, addr);
@@ -133,6 +154,17 @@ export default (physicalBus: PhysicalBusMockType, busNumber: number = 1) => {
         const bytes = buffer.copy(devices[addr], cmd, 0, length);
 
         return cb(null, bytes, buffer);
+      } catch (error) {
+        return cb(error);
+      }
+    },
+    sendByte: (addr: AddrType, byte: ByteType, cb: Function) => {
+      try {
+        checkConnection(physicalBus, busNumber, addr);
+
+        devices[addr][0] = byte;
+
+        return cb(null);
       } catch (error) {
         return cb(error);
       }
