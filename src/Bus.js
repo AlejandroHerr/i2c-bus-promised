@@ -115,9 +115,10 @@ export default class Bus {
   receiveByte(addr: AddrType): Promise<ByteType> {
     return this.addToQueue('receiveByteAsync', addr);
   }
-  /** SMBus send a byte */
-  sendByte(addr: AddrType, byte: ByteType): Promise<void> {
-    return this.addToQueue('sendByteAsync', addr, byte);
+
+  /** SMBus write a single bit */
+  writeQuick(addr: AddrType, bit: BitType): Promise<void> {
+    return this.addToQueue('writeQuickAsync', addr, bit);
   }
   /** SMBus write a byte */
   writeByte(addr: AddrType, cmd: CmdType, byte: ByteType): Promise<void> {
@@ -127,12 +128,12 @@ export default class Bus {
   writeWord(addr: AddrType, cmd: CmdType, word: WordType): Promise<void> {
     return this.addToQueue('writeWordAsync', addr, cmd, word);
   }
-  /** SMBus write a single bit */
-  writeQuick(addr: AddrType, bit: BitType): Promise<void> {
-    return this.addToQueue('writeQuickAsync', addr, bit);
-  }
   /** SMBus write number of bytes from buffer */
   writeI2cBlock(addr: AddrType, cmd: CmdType, length: number, buffer: Buffer): Promise<number> {
     return this.addToQueue('writeI2cBlockAsync', addr, cmd, length, buffer);
+  }
+  /** SMBus send a byte */
+  sendByte(addr: AddrType, byte: ByteType): Promise<void> {
+    return this.addToQueue('sendByteAsync', addr, byte);
   }
 }
