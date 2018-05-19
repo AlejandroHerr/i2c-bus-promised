@@ -2,7 +2,7 @@
 defaults: &defaults
   working_directory: ~/i2c-bus-promised
   docker:
-    - image: circleci/node:8.9-stretch
+    - image: circleci/node:carbon-stretch
 
 whitelist: &whitelist
   paths:
@@ -54,10 +54,18 @@ jobs:
           at: ~/i2c-bus-promised
       - run:
           name: Install Flow-Typed
-          command: yarn flow-typed
+          command: yarn flow:lint
       - run:
           name: Eslint check
           command: yarn lint
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/i2c-bus-promised
+      - run:
+          name: Eslint check
+          command: yarn test
   build:
     <<: *defaults
     steps:
@@ -96,15 +104,23 @@ workflows:
       - lint:
           requires:
             - checkout
+      - test:
+          requires:
+            - checkout
       - build:
           requires:
             - checkout
+          branches:
+              only: master
       - gen_docs:
           requires:
             - build
+          branches:
+              only: master
       - release:
           requires:
             - lint
+            - test
             - build
             - gen_docs
           filters:

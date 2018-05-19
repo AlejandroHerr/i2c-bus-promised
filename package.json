@@ -23,12 +23,12 @@
     "docs:readme": "yarn mos",
     "example": "NODE_PATH=./src node -r babel-register -r babel-polyfill examples/index.js",
     "flow": "flow check",
-    "flow-typed": "flow-typed install --overwrite || true",
+    "flow:install": "flow-typed install --overwrite || true",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
     "semantic-release": "semantic-release -e ./release.config.js",
     "test": "BABEL_DISABLE_CACHE=1 jest",
-    "test:watch": "yarn test --watch",
-    "test:coverage": "yarn jest --coverage"
+    "test:coverage": "yarn jest --coverage",
+    "test:watch": "yarn test --watch"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^2.0.2",
