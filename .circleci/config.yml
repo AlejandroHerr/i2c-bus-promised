@@ -54,7 +54,7 @@ jobs:
           at: ~/i2c-bus-promised
       - run:
           name: Install Flow-Typed
-          command: yarn flow:lint
+          command: yarn flow:install
       - run:
           name: Eslint check
           command: yarn lint
