@@ -25,6 +25,7 @@ export default (physicalBus: PhysicalBusMockType, busNumber: number = 1) => {
   const { devices, funcs } = physicalBus;
 
   return {
+    physicalBus,
     i2cFuncs: (cb: Function) => {
       try {
         checkConnection(physicalBus, busNumber);
@@ -50,7 +51,6 @@ export default (physicalBus: PhysicalBusMockType, busNumber: number = 1) => {
         checkConnection(physicalBus, busNumber, addr);
 
         const bytes = devices[addr].copy(buffer, 0, 0, length);
-
         return cb(null, bytes, buffer);
       } catch (error) {
         return cb(error);
@@ -93,7 +93,7 @@ export default (physicalBus: PhysicalBusMockType, busNumber: number = 1) => {
       try {
         checkConnection(physicalBus, busNumber, addr);
 
-        const bytes = devices[addr].copy(buffer, 0, cmd, length);
+        const bytes = devices[addr].copy(buffer, 0, cmd, cmd + length);
 
         return cb(null, bytes, buffer);
       } catch (error) {
@@ -114,7 +114,7 @@ export default (physicalBus: PhysicalBusMockType, busNumber: number = 1) => {
       try {
         checkConnection(physicalBus, busNumber, addr);
 
-        devices[addr][0] = devices[addr][0] & 0xFE | 0x01 & bit;
+        devices[addr][0] = (devices[addr][0] & 0xFE) | (0x01 & bit);
 
         return cb(null);
       } catch (error) {
