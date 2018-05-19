@@ -21,6 +21,22 @@ module.exports = {
       { type: 'release', release: 'major' },
     ],
   },
+  release: {
+    analyzeCommits: {
+      preset: 'angular',
+      releaseRules: [
+        { type: 'refactor', release: 'patch' },
+        { type: 'Refactor', release: 'patch' },
+        { type: 'Feat', release: 'minor' },
+        { type: 'docs', release: 'patch' },
+        { type: 'Docs', release: 'patch' },
+        { type: 'Fix', release: 'patch' },
+        { type: 'Perf', release: 'patch' },
+        { type: 'Release', release: 'major' },
+        { type: 'release', release: 'major' },
+      ],
+    },
+  },
   generateNotes: {
     preset: 'angular',
     parserOpts: {
