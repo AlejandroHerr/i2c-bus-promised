@@ -225,10 +225,6 @@ Be aware that you're working with a real device, the tests won't be much meaning
 
 [Read the changelog](https://github.com/AlejandroHerr/i2c-bus-promised/blob/master/CHANGELOG.md)
 
-## License
-
-MIT © Alejandro Hernandez
-
 <!--@license()-->
 ## License
 
