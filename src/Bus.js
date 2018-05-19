@@ -14,6 +14,7 @@ import type { BitType, ByteType, WordType, AddrType, CmdType } from './types';
  * All the functions are promised and run through a queue without concurrency,
  * to prevent multiple access to the i2c bus.
  */
+
 export default class Bus {
   bus: ?Object;
   busNumber: number;
@@ -54,15 +55,15 @@ export default class Bus {
 
       return this.bus[fn](...args)
         .catch((error: Error) => {
-          /* If it doesn't have a cause is not an i2c-bus error, throw it */
+          // $FlowFixMe
           if (!error.cause || !(error.cause instanceof Error)) {
             throw error;
           }
-
+          // $FlowFixMe
           if (error.errno && error.errno === -2) {
             throw new BusError('i2c bus not found', ERROR_CODES.NOT_FOUND, error.cause);
           }
-
+          // $FlowFixMe
           if (error.errno && error.errno === 121) {
             throw new BusError('i2c bus IO error', ERROR_CODES.IO_ERROR, error.cause);
           }
@@ -116,10 +117,6 @@ export default class Bus {
     return this.addToQueue('receiveByteAsync', addr);
   }
 
-  /** SMBus write a single bit */
-  writeQuick(addr: AddrType, bit: BitType): Promise<void> {
-    return this.addToQueue('writeQuickAsync', addr, bit);
-  }
   /** SMBus write a byte */
   writeByte(addr: AddrType, cmd: CmdType, byte: ByteType): Promise<void> {
     return this.addToQueue('writeByteAsync', addr, cmd, byte);
@@ -135,5 +132,9 @@ export default class Bus {
   /** SMBus send a byte */
   sendByte(addr: AddrType, byte: ByteType): Promise<void> {
     return this.addToQueue('sendByteAsync', addr, byte);
+  }
+  /** SMBus write a single bit */
+  writeQuick(addr: AddrType, bit: BitType): Promise<void> {
+    return this.addToQueue('writeQuickAsync', addr, bit);
   }
 }
