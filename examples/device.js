@@ -23,7 +23,6 @@ const main = async () => {
   const bus = new Bus();
 
   await bus.open();
-
   await bus.i2cFuncs().then(printFunctions);
   await bus.scan().then(printDevices);
 };

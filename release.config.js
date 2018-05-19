@@ -1,6 +1,6 @@
 module.exports = {
   analyzeCommits: {
-    preset: 'eslint',
+    preset: 'angukar',
     parserOpts: {
       headerPattern: /^(?::([\w-]*):)?\s*(\w*):\s*(.*)$/,
       headerCorrespondence: [
@@ -9,9 +9,12 @@ module.exports = {
         'message',
       ],
     },
+    releaseRules: [
+      { type: 'refactor', release: 'patch' },
+    ],
   },
   generateNotes: {
-    preset: 'eslint',
+    preset: 'angukar',
     parserOpts: {
       headerPattern: /^(?::([\w-]*):)?\s*(\w*):\s*(.*)$/,
       headerCorrespondence: [

@@ -3,18 +3,13 @@ module.exports = {
   extends: 'airbnb-base',
   env: {
     node: true,
-    mocha: true,
+    jest: true,
   },
   rules: {
-    'no-bitwise': ['error', { allow: ['|', '<<', '>>>'] }],
-    'flowtype/boolean-style': [
-      2,
-      'boolean',
-    ],
-    'flowtype/define-flow-type': 1,
+    'no-bitwise': 0,
     'flowtype/delimiter-dangle': [
       2,
-      'never',
+      'always-multiline',
     ],
     'flowtype/generic-spacing': [
       2,
@@ -59,6 +54,7 @@ module.exports = {
     'flowtype/use-flow-type': 1,
     'flowtype/valid-syntax': 1,
     'flowtype-errors/show-errors': 2,
+    'no-warning-comments': [1, { "terms": ["$FlowFixMe"], "location": "anywhere" }],
   },
   plugins: [
     'flowtype',
