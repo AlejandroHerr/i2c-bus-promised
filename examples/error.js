@@ -44,7 +44,7 @@ const einvall = async () => {
 
   try {
     await bus.open();
-    await bus.readWord(0x01);
+    await bus.readWord(0x01); // eslint-disable-line flowtype-errors/show-errors
   } catch (error) {
     console.error('einvall', error);
   }
