@@ -54,17 +54,17 @@ jobs:
           at: ~/i2c-bus-promised
       - run:
           name: Install Flow-Typed
-          command: yarn flow:lint
+          command: yarn flow:install
       - run:
           name: Eslint check
           command: yarn lint
-  lint:
+  test:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/i2c-bus-promised
       - run:
-          name: Eslint check
+          name: Tests
           command: yarn test
   build:
     <<: *defaults
@@ -110,12 +110,14 @@ workflows:
       - build:
           requires:
             - checkout
-          branches:
+          filters:
+            branches:
               only: master
       - gen_docs:
           requires:
             - build
-          branches:
+          filters:
+            branches:
               only: master
       - release:
           requires:
