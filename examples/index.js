@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable no-console */
-import Bus from '../src/Bus';
+import { Bus } from '../src';
 import type { AddrType, CmdType } from '../src/types';
 
 const printFunctions = (funcs: {[string]: number}) => {

@@ -1,6 +1,7 @@
 toc:
   - Bus
   - Device
+  - BusError
   - name: Mocks
     description: |
       Customizable mock of the underliying `i2c-bus` library to mock the physical i2c device

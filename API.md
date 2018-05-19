@@ -31,22 +31,22 @@
     -   [writeWord][27]
     -   [writeI2cBlock][28]
     -   [sendByte][29]
--   [Mocks][30]
-    -   [createI2cBus][31]
-    -   [i2cBus][32]
-    -   [Helpers][33]
-        -   [createIOError][34]
-        -   [createNotFoundError][35]
-    -   [Types][36]
-        -   [PhysicalBusErrorType][37]
-        -   [PhysicalBusMockType][38]
--   [Types][39]
-    -   [BitType][40]
-    -   [ByteType][41]
-    -   [WordType][42]
-    -   [CmdType][43]
-    -   [AddrType][44]
--   [BusError][45]
+-   [BusError][30]
+-   [Mocks][31]
+    -   [createI2cBus][32]
+    -   [i2cBus][33]
+    -   [Helpers][34]
+        -   [createIOError][35]
+        -   [createNotFoundError][36]
+    -   [Types][37]
+        -   [PhysicalBusErrorType][38]
+        -   [PhysicalBusMockType][39]
+-   [Types][40]
+    -   [BitType][41]
+    -   [ByteType][42]
+    -   [WordType][43]
+    -   [CmdType][44]
+    -   [AddrType][45]
 
 ## Bus
 
@@ -348,6 +348,18 @@ SMBus send a byte to the device's address
 
 Returns **[Promise][47]&lt;void>** 
 
+## BusError
+
+**Extends Error**
+
+Class representing an error ocurred inside the Bus.
+
+**Parameters**
+
+-   `message` **[string][48]** 
+-   `code` **[string][48]** 
+-   `causeError` **[Error][58]?**  (optional, default `null`)
+
 ## Mocks
 
 Customizable mock of the underliying `i2c-bus` library to mock the physical i2c device
@@ -359,9 +371,9 @@ Mock to import `i2c-bus` library
 
 **Parameters**
 
--   `physicalBus` **[PhysicalBusMockType][58]** 
+-   `physicalBus` **[PhysicalBusMockType][59]** 
 
-Returns **{open: function (busNumber: [number][46], cb: [Function][59]): [i2cBus][60]}** 
+Returns **{open: function (busNumber: [number][46], cb: [Function][60]): [i2cBus][61]}** 
 
 ### i2cBus
 
@@ -369,7 +381,7 @@ i2cBus mock
 
 **Parameters**
 
--   `physicalBus` **[PhysicalBusMockType][58]** 
+-   `physicalBus` **[PhysicalBusMockType][59]** 
 -   `busNumber` **[number][46]**  (optional, default `1`)
 
 ### Helpers
@@ -382,7 +394,7 @@ i2cBus mock
 Function that creates an error for I/O erros
 (i.e device not available)
 
-Returns **[PhysicalBusErrorType][61]** 
+Returns **[PhysicalBusErrorType][62]** 
 
 #### createNotFoundError
 
@@ -393,7 +405,7 @@ Function that creates an error for a bus not found
 
 -   `busNumber` **[number][46]** 
 
-Returns **[PhysicalBusErrorType][61]** 
+Returns **[PhysicalBusErrorType][62]** 
 
 ### Types
 
@@ -453,18 +465,6 @@ Byte-length number (0x00 - 0xff)
 
 Type: [number][46]
 
-## BusError
-
-**Extends Error**
-
-Class representing an error ocurred inside the Bus.
-
-**Parameters**
-
--   `message` **[string][48]** 
--   `code` **[string][48]** 
--   `causeError` **[Error][62]?**  (optional, default `null`)
-
 [1]: #bus
 
 [2]: #open
@@ -523,37 +523,37 @@ Class representing an error ocurred inside the Bus.
 
 [29]: #sendbyte-1
 
-[30]: #mocks
+[30]: #buserror
 
-[31]: #createi2cbus
+[31]: #mocks
 
-[32]: #i2cbus
+[32]: #createi2cbus
 
-[33]: #helpers
+[33]: #i2cbus
 
-[34]: #createioerror
+[34]: #helpers
 
-[35]: #createnotfounderror
+[35]: #createioerror
 
-[36]: #types
+[36]: #createnotfounderror
 
-[37]: #physicalbuserrortype
+[37]: #types
 
-[38]: #physicalbusmocktype
+[38]: #physicalbuserrortype
 
-[39]: #types-1
+[39]: #physicalbusmocktype
 
-[40]: #bittype
+[40]: #types-1
 
-[41]: #bytetype
+[41]: #bittype
 
-[42]: #wordtype
+[42]: #bytetype
 
-[43]: #cmdtype
+[43]: #wordtype
 
-[44]: #addrtype
+[44]: #cmdtype
 
-[45]: #buserror
+[45]: #addrtype
 
 [46]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
@@ -579,12 +579,12 @@ Class representing an error ocurred inside the Bus.
 
 [57]: #bus
 
-[58]: #physicalbusmocktype
+[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[59]: #physicalbusmocktype
 
-[60]: #i2cbus
+[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[61]: #physicalbuserrortype
+[61]: #i2cbus
 
-[62]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
+[62]: #physicalbuserrortype

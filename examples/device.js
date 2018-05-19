@@ -1,30 +1,42 @@
 // @flow
 /* eslint-disable no-console */
-import Bus from '../src/Bus';
-import type { AddrType, CmdType } from '../src/types';
+import { Bus, Device } from '../src';
+import type { ByteType, WordType } from '../src/types';
 
-const printFunctions = (funcs: {[string]: number}) => {
-  Object.entries(funcs).forEach(([name, cmd]: [string, mixed]) => {
-    const realCmd: CmdType = typeof cmd === 'number' ? cmd : 0;
+class WeatherSensor extends Device {
+  constructor(bus: Bus) {
+    super(bus, 0x72);
+  }
 
-    console.info(`\t${name} --> 0x${realCmd.toString(16)}`);
-  });
-};
+  writeConfig(config: ByteType) {
+    return this.writeByte(0x24, config);
+  }
 
-const printDevices = (devices: Array<AddrType>) => {
-  console.info(`Available devices: ${devices.reduce(
-    (display: string, addr: AddrType) =>
-      `${display}, 0x${addr.toString(16)}`
-    , '',
-  )}`);
-};
+  readTemperature() {
+    return this.readWord(0x50);
+  }
+
+  readPressure() {
+    return this.readWord(0x52);
+  }
+}
 
 const main = async () => {
   const bus = new Bus();
+  const weatherSensor = new WeatherSensor(bus);
 
   await bus.open();
-  await bus.i2cFuncs().then(printFunctions);
-  await bus.scan().then(printDevices);
+
+  await weatherSensor.writeConfig(0b1 | 0b100);
+
+  return Promise.all([
+    weatherSensor.readTemperature(),
+    weatherSensor.readPressure(),
+  ])
+    .then(([temperature, pressure]: Array<WordType>) => {
+      console.log(`The temperature is ${temperature}°C`);
+      console.log(`The pressure is ${pressure}Pa`);
+    });
 };
 
 main()
