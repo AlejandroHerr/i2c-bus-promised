@@ -2,7 +2,12 @@
 src/*
 src
 
+[ignore]
+.*/node_modules/**
+.*/node_modules/*
+
 [libs]
+flow-typed/
 
 [options]
 esproposal.class_static_fields=enable
