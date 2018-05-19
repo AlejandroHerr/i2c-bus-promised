@@ -1,4 +1,5 @@
 # i2c-bus-promised [![CircleCI](https://circleci.com/gh/AlejandroHerr/i2c-bus-promised/tree/master.svg?style=svg)](https://circleci.com/gh/AlejandroHerr/scroll-phat-hd.js/tree/development)
+[![Greenkeeper badge](https://badges.greenkeeper.io/AlejandroHerr/i2c-bus-promised.svg?style=flat-square)](https://greenkeeper.io/)
 
 <!--@shields.flatSquare('deps','devDeps')-->
 [![dependency status](https://img.shields.io/david/AlejandroHerr/i2c-bus-promised/master.svg?style=flat-square)](https://david-dm.org/AlejandroHerr/i2c-bus-promised/master) [![devDependency status](https://img.shields.io/david/dev/AlejandroHerr/i2c-bus-promised/master.svg?style=flat-square)](https://david-dm.org/AlejandroHerr/i2c-bus-promised/master#info=devDependencies)
