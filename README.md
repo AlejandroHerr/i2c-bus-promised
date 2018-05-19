@@ -70,11 +70,11 @@ main()
 
 ## Documentation
 
-[Read the API](./API.md)
+[Read the API](https://github.com/AlejandroHerr/i2c-bus-promised/blob/master/API.md)
 
 ## Changelog
 
-[Read the changelog](./CHANGELOG.md)
+[Read the changelog](https://github.com/AlejandroHerr/i2c-bus-promised/blob/master/CHANGELOG.md)
 
 ## License
 
