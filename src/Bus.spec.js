@@ -1,4 +1,5 @@
 import Bus from './Bus';
+import BusError from './error/BusError';
 
 const BUS_NUMBER = 1;
 
@@ -31,8 +32,17 @@ const setup = async (busNumber) => {
 };
 
 describe('Bus', () => {
+  it('throws a bus error if cannot open the bus', async () => {
+    const bus = new Bus(45);
+
+    try {
+      await bus.open();
+    } catch (error) {
+      expect(error).toEqual(new BusError('Error opening i2c bus: '));
+    }
+  });
   describe('i2cFuncs', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const result = await bus.i2cFuncs();
@@ -42,7 +52,7 @@ describe('Bus', () => {
     });
   });
   describe('scan', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const result = await bus.scan();
@@ -52,7 +62,7 @@ describe('Bus', () => {
     });
   });
   describe('read', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -68,7 +78,7 @@ describe('Bus', () => {
     });
   });
   describe('write', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -84,7 +94,7 @@ describe('Bus', () => {
     });
   });
   describe('readByte', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -99,7 +109,7 @@ describe('Bus', () => {
     });
   });
   describe('readWord', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -114,7 +124,7 @@ describe('Bus', () => {
     });
   });
   describe('readI2cBlock', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -132,7 +142,7 @@ describe('Bus', () => {
     });
   });
   describe('receiveByte', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -145,7 +155,7 @@ describe('Bus', () => {
     });
   });
   describe('writeByte', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -161,7 +171,7 @@ describe('Bus', () => {
     });
   });
   describe('writeWord', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -177,7 +187,7 @@ describe('Bus', () => {
     });
   });
   describe('readI2cBlock', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -195,7 +205,7 @@ describe('Bus', () => {
     });
   });
   describe('writeI2cBlock', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
@@ -213,7 +223,7 @@ describe('Bus', () => {
     });
   });
   describe('sendByte', () => {
-    it('calls the corresponding Bus function', async () => {
+    it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
 
       const deviceAddr = Object.keys(physicalBus.devices).map(addr => parseInt(addr, 10))[0];
