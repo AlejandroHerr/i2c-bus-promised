@@ -1,0 +1,27 @@
+toc:
+  - Bus
+  - Device
+  - BusError
+  - name: Mocks
+    description: |
+      Customizable mock of the underliying `i2c-bus` library to mock the physical i2c device
+    children:
+      - createI2cBus
+      - i2cBus
+      - name: Helpers
+        children: 
+          - createIOError
+          - createNotFoundError
+      - name: Types
+        children: 
+          - PhysicalBusErrorType
+          - PhysicalBusMockType
+  - name: Types
+    description: |
+      A handful of Flow-Types that help to understand the expected values
+    children:
+      - BitType
+      - ByteType
+      - WordType
+      - CmdType
+      - AddrType

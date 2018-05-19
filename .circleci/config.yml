@@ -2,13 +2,14 @@
 defaults: &defaults
   working_directory: ~/i2c-bus-promised
   docker:
-    - image: circleci/node:8.9-stretch
+    - image: circleci/node:carbon-stretch
 
 whitelist: &whitelist
   paths:
     - .git/
     - examples/
     - flow-typed/*
+    - lib/*
     - node_modules/*
     - src/*
     - test/*
@@ -18,6 +19,7 @@ whitelist: &whitelist
     - .flowconfig
     - .gitignore
     - API.md
+    - documentation.yml
     - LICENSE.md
     - package.json
     - README.md
@@ -52,10 +54,18 @@ jobs:
           at: ~/i2c-bus-promised
       - run:
           name: Install Flow-Typed
-          command: yarn flow-typed
+          command: yarn flow:install
       - run:
           name: Eslint check
           command: yarn lint
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/i2c-bus-promised
+      - run:
+          name: Tests
+          command: yarn test
   build:
     <<: *defaults
     steps:
@@ -67,13 +77,17 @@ jobs:
       - persist_to_workspace:
           root: ~/i2c-bus-promised
           <<: *whitelist
-  publish:
+  gen_docs:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/i2c-bus-promised
-      - { run: { name: 'Write NPM Token to ~/.npmrc', command: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc' } }
-      - { run: { name: 'Publish to NPM', command: 'npm publish --access=public' } }
+      - run:
+          name: Generate Documentantion
+          command: yarn docs
+      - persist_to_workspace:
+          root: ~/i2c-bus-promised
+          <<: *whitelist
   release:
     <<: *defaults
     steps:
@@ -90,13 +104,27 @@ workflows:
       - lint:
           requires:
             - checkout
+      - test:
+          requires:
+            - checkout
       - build:
           requires:
             - checkout
-      - release:
+          filters:
+            branches:
+              only: master
+      - gen_docs:
           requires:
             - build
+          filters:
+            branches:
+              only: master
+      - release:
+          requires:
             - lint
+            - test
+            - build
+            - gen_docs
           filters:
             branches:
               only: master
