@@ -58,13 +58,13 @@ jobs:
       - run:
           name: Eslint check
           command: yarn lint
-  lint:
+  test:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/i2c-bus-promised
       - run:
-          name: Eslint check
+          name: Tests
           command: yarn test
   build:
     <<: *defaults
