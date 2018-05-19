@@ -1,7 +1,8 @@
 {
   "name": "i2c-bus-promised",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Promised wrapper for i2c-bus",
+  "keywords": ["i2c","i2c-bus", "Raspberry Pi", "raspberry", "pi", "rpi", "node.js"],
   "main": "lib/index.js",
   "module": "lib/i2c-bus-promised.js",
   "author": "Alejandro Hernandez <ahernandezc@protonmail.com>",
