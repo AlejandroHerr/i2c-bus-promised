@@ -17,6 +17,8 @@ module.exports = {
       { type: 'Docs', release: 'patch' },
       { type: 'Fix', release: 'patch' },
       { type: 'Perf', release: 'patch' },
+      { type: 'Release', release: 'major' },
+      { type: 'release', release: 'major' },
     ],
   },
   generateNotes: {
