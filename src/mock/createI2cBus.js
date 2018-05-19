@@ -11,6 +11,10 @@ export default (physicalBus: PhysicalBusMockType): {
   open: (busNumber: number, cb: Function) => i2cBus,
 } => ({
   open: (busNumber: number, cb: Function): i2cBus => {
+    if (busNumber !== physicalBus.busNumber) {
+      return cb(new Error());
+    }
+
     cb(null);
 
     return i2cBus(physicalBus, busNumber);
