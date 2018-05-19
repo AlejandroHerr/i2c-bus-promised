@@ -2,66 +2,99 @@
 
 ### Table of Contents
 
--   [Bus](#bus)
-    -   [close](#close)
-    -   [i2cFuncs](#i2cfuncs)
-    -   [scan](#scan)
-    -   [read](#read)
-    -   [write](#write)
-    -   [readByte](#readbyte)
-    -   [readWord](#readword)
-    -   [readI2cBlock](#readi2cblock)
-    -   [receiveByte](#receivebyte)
-    -   [sendByte](#sendbyte)
-    -   [writeByte](#writebyte)
-    -   [writeWord](#writeword)
-    -   [writeQuick](#writequick)
-    -   [writeI2cBlock](#writei2cblock)
--   [Device](#device)
-    -   [read](#read-1)
-    -   [write](#write-1)
-    -   [readByte](#readbyte-1)
-    -   [readI2cBlock](#readi2cblock-1)
-    -   [readWord](#readword-1)
-    -   [receiveByte](#receivebyte-1)
-    -   [sendByte](#sendbyte-1)
-    -   [writeByte](#writebyte-1)
-    -   [writeI2cBlock](#writei2cblock-1)
-    -   [writeQuick](#writequick-1)
-    -   [writeWord](#writeword-1)
--   [BitType](#bittype)
--   [ByteType](#bytetype)
--   [WordType](#wordtype)
--   [AddrType](#addrtype)
--   [CmdType](#cmdtype)
+-   [Bus][1]
+    -   [open][2]
+    -   [addToQueue][3]
+    -   [close][4]
+    -   [i2cFuncs][5]
+    -   [scan][6]
+    -   [read][7]
+    -   [write][8]
+    -   [readByte][9]
+    -   [readWord][10]
+    -   [readI2cBlock][11]
+    -   [receiveByte][12]
+    -   [writeByte][13]
+    -   [writeWord][14]
+    -   [writeI2cBlock][15]
+    -   [sendByte][16]
+    -   [writeQuick][17]
+-   [Device][18]
+    -   [read][19]
+    -   [write][20]
+    -   [readByte][21]
+    -   [readWord][22]
+    -   [readI2cBlock][23]
+    -   [receiveByte][24]
+    -   [writeQuick][25]
+    -   [writeByte][26]
+    -   [writeWord][27]
+    -   [writeI2cBlock][28]
+    -   [sendByte][29]
+-   [Mocks][30]
+    -   [createI2cBus][31]
+    -   [i2cBus][32]
+    -   [Helpers][33]
+        -   [createIOError][34]
+        -   [createNotFoundError][35]
+    -   [Types][36]
+        -   [PhysicalBusErrorType][37]
+        -   [PhysicalBusMockType][38]
+-   [Types][39]
+    -   [BitType][40]
+    -   [ByteType][41]
+    -   [WordType][42]
+    -   [CmdType][43]
+    -   [AddrType][44]
+-   [BusError][45]
 
 ## Bus
 
-i2c Bus class.
+i2c Bus class. Wraps and promises the original `i2c-bus` library.
 All the functions are promised and run through a queue without concurrency,
 to prevent multiple access to the i2c bus.
 
 **Parameters**
 
--   `busNumber` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**  (optional, default `1`)
+-   `busNumber` **[number][46]**  (optional, default `1`)
+
+### open
+
+Opens the bus connection
+
+Returns **[Promise][47]&lt;void>** 
+
+### addToQueue
+
+Adds operation to the promise queue. Do **not** call this function directly.
+
+**Parameters**
+
+-   `fn` **[string][48]** 
+-   `args` **...[Array][49]&lt;any>** 
+
+
+-   Throws **[BusError][50]** If the bus connection is not open
+
+Returns **[Promise][47]&lt;any>** 
 
 ### close
 
 Closes the bus connection
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
+Returns **[Promise][47]&lt;void>** 
 
 ### i2cFuncs
 
 Determines functionality of the bus/adapter
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;{}>** 
+Returns **[Promise][47]&lt;{}>** 
 
 ### scan
 
 Scans the I2C bus asynchronously for devices
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[AddrType](#addrtype)>>** 
+Returns **[Promise][47]&lt;[Array][49]&lt;[AddrType][51]>>** 
 
 ### read
 
@@ -69,11 +102,11 @@ Plain i2c read
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
+-   `addr` **[AddrType][51]** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[number][46]>** 
 
 ### write
 
@@ -81,11 +114,11 @@ Plain i2c write
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
+-   `addr` **[AddrType][51]** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[number][46]>** 
 
 ### readByte
 
@@ -93,10 +126,10 @@ SMBus read byte
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `cmd` **[CmdType](#cmdtype)** 
+-   `addr` **[AddrType][51]** 
+-   `cmd` **[CmdType][53]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[ByteType](#bytetype)>** 
+Returns **[Promise][47]&lt;[ByteType][54]>** 
 
 ### readWord
 
@@ -104,10 +137,10 @@ SMBus read word
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `cmd` **[CmdType](#cmdtype)** 
+-   `addr` **[AddrType][51]** 
+-   `cmd` **[CmdType][53]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[WordType](#wordtype)>** 
+Returns **[Promise][47]&lt;[WordType][55]>** 
 
 ### readI2cBlock
 
@@ -115,12 +148,12 @@ SMBus read number of bytes to buffer
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `cmd` **[CmdType](#cmdtype)** 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
+-   `addr` **[AddrType][51]** 
+-   `cmd` **[CmdType][53]** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[number][46]>** 
 
 ### receiveByte
 
@@ -128,20 +161,9 @@ SMBus receive a byte
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
+-   `addr` **[AddrType][51]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[ByteType](#bytetype)>** 
-
-### sendByte
-
-SMBus send a byte
-
-**Parameters**
-
--   `addr` **[AddrType](#addrtype)** 
--   `byte` **[ByteType](#bytetype)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
+Returns **[Promise][47]&lt;[ByteType][54]>** 
 
 ### writeByte
 
@@ -149,11 +171,11 @@ SMBus write a byte
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `cmd` **[CmdType](#cmdtype)** 
--   `byte` **[ByteType](#bytetype)** 
+-   `addr` **[AddrType][51]** 
+-   `cmd` **[CmdType][53]** 
+-   `byte` **[ByteType][54]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
+Returns **[Promise][47]&lt;void>** 
 
 ### writeWord
 
@@ -161,22 +183,11 @@ SMBus write a word
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `cmd` **[CmdType](#cmdtype)** 
--   `word` **[WordType](#wordtype)** 
+-   `addr` **[AddrType][51]** 
+-   `cmd` **[CmdType][53]** 
+-   `word` **[WordType][55]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
-
-### writeQuick
-
-SMBus write a single bit
-
-**Parameters**
-
--   `addr` **[AddrType](#addrtype)** 
--   `bit` **[BitType](#bittype)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
+Returns **[Promise][47]&lt;void>** 
 
 ### writeI2cBlock
 
@@ -184,21 +195,44 @@ SMBus write number of bytes from buffer
 
 **Parameters**
 
--   `addr` **[AddrType](#addrtype)** 
--   `cmd` **[CmdType](#cmdtype)** 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
+-   `addr` **[AddrType][51]** 
+-   `cmd` **[CmdType][53]** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[number][46]>** 
+
+### sendByte
+
+SMBus send a byte
+
+**Parameters**
+
+-   `addr` **[AddrType][51]** 
+-   `byte` **[ByteType][54]** 
+
+Returns **[Promise][47]&lt;void>** 
+
+### writeQuick
+
+SMBus write a single bit
+
+**Parameters**
+
+-   `addr` **[AddrType][51]** 
+-   `bit` **[BitType][56]** 
+
+Returns **[Promise][47]&lt;void>** 
 
 ## Device
 
 i2c device base class.
+Represents an i2c device connected to the i2c bus.
 
 **Parameters**
 
--   `bus` **[Bus](#bus)** 
--   `address` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `bus` **[Bus][57]** 
+-   `address` **[number][46]** 
 
 ### read
 
@@ -206,10 +240,10 @@ Plain i2c read
 
 **Parameters**
 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[number][46]>** 
 
 ### write
 
@@ -217,10 +251,10 @@ Plain i2c write
 
 **Parameters**
 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[number][46]>** 
 
 ### readByte
 
@@ -228,21 +262,9 @@ SMBus read byte
 
 **Parameters**
 
--   `cmd` **[CmdType](#cmdtype)** 
+-   `cmd` **[CmdType][53]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[ByteType](#bytetype)>** 
-
-### readI2cBlock
-
-SMBus read number of bytes to buffer
-
-**Parameters**
-
--   `cmd` **[CmdType](#cmdtype)** 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[ByteType][54]>** 
 
 ### readWord
 
@@ -250,48 +272,27 @@ SMBus read word
 
 **Parameters**
 
--   `cmd` **[CmdType](#cmdtype)** 
+-   `cmd` **[CmdType][53]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[WordType](#wordtype)>** 
+Returns **[Promise][47]&lt;[WordType][55]>** 
+
+### readI2cBlock
+
+SMBus read number of bytes to buffer
+
+**Parameters**
+
+-   `cmd` **[CmdType][53]** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
+
+Returns **[Promise][47]&lt;[number][46]>** 
 
 ### receiveByte
 
 SMBus receive a byte
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[ByteType](#bytetype)>** 
-
-### sendByte
-
-SMBus send a byte to the device's address
-
-**Parameters**
-
--   `byte` **[ByteType](#bytetype)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
-
-### writeByte
-
-SMBus write a byte to the device's address
-
-**Parameters**
-
--   `cmd` **[CmdType](#cmdtype)** 
--   `byte` **[ByteType](#bytetype)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
-
-### writeI2cBlock
-
-SMBus write number of bytes from buffer to the device's address
-
-**Parameters**
-
--   `cmd` **[CmdType](#cmdtype)** 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `buffer` **[Buffer](https://nodejs.org/api/buffer.html)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+Returns **[Promise][47]&lt;[ByteType][54]>** 
 
 ### writeQuick
 
@@ -299,9 +300,20 @@ SMBus write a single bit to the device's address
 
 **Parameters**
 
--   `bit` **[BitType](#bittype)** 
+-   `bit` **[BitType][56]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
+Returns **[Promise][47]&lt;void>** 
+
+### writeByte
+
+SMBus write a byte to the device's address
+
+**Parameters**
+
+-   `cmd` **[CmdType][53]** 
+-   `byte` **[ByteType][54]** 
+
+Returns **[Promise][47]&lt;void>** 
 
 ### writeWord
 
@@ -309,37 +321,270 @@ SMBus write a word to the device's address
 
 **Parameters**
 
--   `cmd` **[CmdType](#cmdtype)** 
--   `word` **[WordType](#wordtype)** 
+-   `cmd` **[CmdType][53]** 
+-   `word` **[WordType][55]** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;void>** 
+Returns **[Promise][47]&lt;void>** 
 
-## BitType
+### writeI2cBlock
+
+SMBus write number of bytes from buffer to the device's address
+
+**Parameters**
+
+-   `cmd` **[CmdType][53]** 
+-   `length` **[number][46]** 
+-   `buffer` **[Buffer][52]** 
+
+Returns **[Promise][47]&lt;[number][46]>** 
+
+### sendByte
+
+SMBus send a byte to the device's address
+
+**Parameters**
+
+-   `byte` **[ByteType][54]** 
+
+Returns **[Promise][47]&lt;void>** 
+
+## Mocks
+
+Customizable mock of the underliying `i2c-bus` library to mock the physical i2c device
+
+
+### createI2cBus
+
+Mock to import `i2c-bus` library
+
+**Parameters**
+
+-   `physicalBus` **[PhysicalBusMockType][58]** 
+
+Returns **{open: function (busNumber: [number][46], cb: [Function][59]): [i2cBus][60]}** 
+
+### i2cBus
+
+i2cBus mock
+
+**Parameters**
+
+-   `physicalBus` **[PhysicalBusMockType][58]** 
+-   `busNumber` **[number][46]**  (optional, default `1`)
+
+### Helpers
+
+
+
+
+#### createIOError
+
+Function that creates an error for I/O erros
+(i.e device not available)
+
+Returns **[PhysicalBusErrorType][61]** 
+
+#### createNotFoundError
+
+Function that creates an error for a bus not found
+(i.e bus number not available or nor configured)
+
+**Parameters**
+
+-   `busNumber` **[number][46]** 
+
+Returns **[PhysicalBusErrorType][61]** 
+
+### Types
+
+
+
+
+#### PhysicalBusErrorType
+
+Type representing i2c-bus errors
+
+Type: any
+
+#### PhysicalBusMockType
+
+Type representing the data used to mock the i2c bus
+
+Type: {busNumber: [number][46], devices: {}, funcs: {}}
+
+**Properties**
+
+-   `busNumber` **[number][46]** 
+-   `devices` **{}** 
+-   `funcs` **{}** 
+
+## Types
+
+A handful of Flow-Types that help to understand the expected values
+
+
+### BitType
 
 Single bit
 
 Type: (`0` \| `1`)
 
-## ByteType
+### ByteType
 
 Byte-length number (0x00 - 0xff)
 
-Type: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)
+Type: [number][46]
 
-## WordType
+### WordType
 
-Byte-length number (0x00 - 0xff)
+Byte-length number (0x0000 - 0xffff)
 
-Type: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)
+Type: [number][46]
 
-## AddrType
-
-Byte-length number (0x00 - 0xff)
-
-Type: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)
-
-## CmdType
+### CmdType
 
 Byte-length number (0x00 - 0xff)
 
-Type: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)
+Type: [number][46]
+
+### AddrType
+
+Byte-length number (0x00 - 0xff)
+
+Type: [number][46]
+
+## BusError
+
+**Extends Error**
+
+Class representing an error ocurred inside the Bus.
+
+**Parameters**
+
+-   `message` **[string][48]** 
+-   `code` **[string][48]** 
+-   `causeError` **[Error][62]?**  (optional, default `null`)
+
+[1]: #bus
+
+[2]: #open
+
+[3]: #addtoqueue
+
+[4]: #close
+
+[5]: #i2cfuncs
+
+[6]: #scan
+
+[7]: #read
+
+[8]: #write
+
+[9]: #readbyte
+
+[10]: #readword
+
+[11]: #readi2cblock
+
+[12]: #receivebyte
+
+[13]: #writebyte
+
+[14]: #writeword
+
+[15]: #writei2cblock
+
+[16]: #sendbyte
+
+[17]: #writequick
+
+[18]: #device
+
+[19]: #read-1
+
+[20]: #write-1
+
+[21]: #readbyte-1
+
+[22]: #readword-1
+
+[23]: #readi2cblock-1
+
+[24]: #receivebyte-1
+
+[25]: #writequick-1
+
+[26]: #writebyte-1
+
+[27]: #writeword-1
+
+[28]: #writei2cblock-1
+
+[29]: #sendbyte-1
+
+[30]: #mocks
+
+[31]: #createi2cbus
+
+[32]: #i2cbus
+
+[33]: #helpers
+
+[34]: #createioerror
+
+[35]: #createnotfounderror
+
+[36]: #types
+
+[37]: #physicalbuserrortype
+
+[38]: #physicalbusmocktype
+
+[39]: #types-1
+
+[40]: #bittype
+
+[41]: #bytetype
+
+[42]: #wordtype
+
+[43]: #cmdtype
+
+[44]: #addrtype
+
+[45]: #buserror
+
+[46]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[47]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[48]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[49]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[50]: #buserror
+
+[51]: #addrtype
+
+[52]: https://nodejs.org/api/buffer.html
+
+[53]: #cmdtype
+
+[54]: #bytetype
+
+[55]: #wordtype
+
+[56]: #bittype
+
+[57]: #bus
+
+[58]: #physicalbusmocktype
+
+[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[60]: #i2cbus
+
+[61]: #physicalbuserrortype
+
+[62]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
