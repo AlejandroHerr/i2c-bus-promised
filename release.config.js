@@ -32,10 +32,14 @@ module.exports = {
   ],
   getLastRelease: '@semantic-release/npm',
   prepare: [
+    {
+      path: '@semantic-release/changelog',
+      changelogFile: 'CHANGELOG.md',
+    },
     '@semantic-release/npm',
     {
       path: '@semantic-release/git',
-      assets: ['package.json', 'dist/**/*.{js|css}', 'docs'],
+      assets: ['package.json', 'API.md', 'CHANGELOG.md', 'README.md'],
       // eslint-disable-next-line no-template-curly-in-string
       message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
     },
