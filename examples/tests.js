@@ -1,5 +1,4 @@
 import { Bus } from '../src';
-import BusError from '../src/error/BusError';
 
 const BUS_NUMBER = 1;
 
@@ -32,15 +31,6 @@ const setup = async (busNumber) => {
 };
 
 describe('Bus', () => {
-  it('throws a bus error if cannot open the bus', async () => {
-    const bus = new Bus(45);
-
-    try {
-      await bus.open();
-    } catch (error) {
-      expect(error).toEqual(new BusError('Error opening i2c bus: '));
-    }
-  });
   describe('i2cFuncs', () => {
     it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);

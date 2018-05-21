@@ -32,18 +32,18 @@
     -   [writeI2cBlock][28]
     -   [sendByte][29]
 -   [BusError][30]
--   [Mocks][31]
-    -   [createI2cBus][32]
-    -   [i2cBus][33]
-    -   [Types][34]
-        -   [PhysicalBusErrorType][35]
-        -   [PhysicalBusMockType][36]
--   [Types][37]
-    -   [BitType][38]
-    -   [ByteType][39]
-    -   [WordType][40]
-    -   [CmdType][41]
-    -   [AddrType][42]
+-   [Types][31]
+    -   [BitType][32]
+    -   [ByteType][33]
+    -   [WordType][34]
+    -   [CmdType][35]
+    -   [AddrType][36]
+-   [Mocks][37]
+    -   [createI2cBus][38]
+    -   [i2cBus][39]
+    -   [Types][40]
+        -   [PhysicalBusErrorType][41]
+        -   [PhysicalBusMockType][42]
 
 ## Bus
 
@@ -357,6 +357,41 @@ Class representing an error ocurred inside the Bus.
 -   `code` **[string][45]** 
 -   `causeError` **[Error][55]?**  (optional, default `null`)
 
+## Types
+
+A handful of Flow-Types that help to understand the expected values
+
+
+### BitType
+
+Single bit
+
+Type: (`0` \| `1`)
+
+### ByteType
+
+Byte-length number (0x00 - 0xff)
+
+Type: [number][43]
+
+### WordType
+
+Byte-length number (0x0000 - 0xffff)
+
+Type: [number][43]
+
+### CmdType
+
+Byte-length number (0x00 - 0xff)
+
+Type: [number][43]
+
+### AddrType
+
+Byte-length number (0x00 - 0xff)
+
+Type: [number][43]
+
 ## Mocks
 
 Customizable mock of the underliying `i2c-bus` library to mock the physical i2c device
@@ -403,41 +438,6 @@ Type: {busNumber: [number][43], devices: {}, funcs: {}}
 -   `busNumber` **[number][43]** 
 -   `devices` **{}** 
 -   `funcs` **{}** 
-
-## Types
-
-A handful of Flow-Types that help to understand the expected values
-
-
-### BitType
-
-Single bit
-
-Type: (`0` \| `1`)
-
-### ByteType
-
-Byte-length number (0x00 - 0xff)
-
-Type: [number][43]
-
-### WordType
-
-Byte-length number (0x0000 - 0xffff)
-
-Type: [number][43]
-
-### CmdType
-
-Byte-length number (0x00 - 0xff)
-
-Type: [number][43]
-
-### AddrType
-
-Byte-length number (0x00 - 0xff)
-
-Type: [number][43]
 
 [1]: #bus
 
@@ -499,29 +499,29 @@ Type: [number][43]
 
 [30]: #buserror
 
-[31]: #mocks
+[31]: #types
 
-[32]: #createi2cbus
+[32]: #bittype
 
-[33]: #i2cbus
+[33]: #bytetype
 
-[34]: #types
+[34]: #wordtype
 
-[35]: #physicalbuserrortype
+[35]: #cmdtype
 
-[36]: #physicalbusmocktype
+[36]: #addrtype
 
-[37]: #types-1
+[37]: #mocks
 
-[38]: #bittype
+[38]: #createi2cbus
 
-[39]: #bytetype
+[39]: #i2cbus
 
-[40]: #wordtype
+[40]: #types-1
 
-[41]: #cmdtype
+[41]: #physicalbuserrortype
 
-[42]: #addrtype
+[42]: #physicalbusmocktype
 
 [43]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 

@@ -20,40 +20,43 @@ npm install --save i2c-bus-promised
 
 There's two main class exports in this library: `Bus` and `Device`.
 
-### Bus
+`Bus` class wraps original `i2c-bus` methods and returns them promised, to make more comofrtable to work with them. The calls are queued to avoid blocking calls to the i2c bus.
+`Device` class abstracts an `i2c` device.The class is initialised with two arguments, `bus` and `device address`. Internally it will call the reciprocal methods on the bus object with it's address.
 
-Bus is a class that wraps original `i2c-bus` methods and returns them promised. Besides that, the calls are queued to avoid blocking calls to the i2c bus. Example:
-
-<!--@snippet('./examples/index.js', { showSource: true })-->
+<!--@snippet('./examples/usage.js', { showSource: true })-->
 ```js
 // @flow
 /* eslint-disable no-console */
-import { Bus } from '../src';
-import type { AddrType, CmdType } from '../src/types';
-
-const printFunctions = (funcs: {[string]: number}) => {
-  Object.entries(funcs).forEach(([name, cmd]: [string, mixed]) => {
-    const realCmd: CmdType = typeof cmd === 'number' ? cmd : 0;
-
-    console.info(`\t${name} --> 0x${realCmd.toString(16)}`);
-  });
-};
-
-const printDevices = (devices: Array<AddrType>) => {
-  console.info(`Available devices: ${devices.reduce(
-    (display: string, addr: AddrType) =>
-      `${display}, 0x${addr.toString(16)}`
-    , '',
-  )}`);
-};
+import { Bus, Device } from '../src';
+import type { AddrType, WordType } from '../src/types';
 
 const main = async () => {
   const bus = new Bus();
-
   await bus.open();
 
-  await bus.i2cFuncs().then(printFunctions);
-  await bus.scan().then(printDevices);
+  // Print bus info
+  await Promise.all([
+    bus.i2cFuncs().then((funcs: {[string]: number}) => console.log(JSON.stringify(funcs, null, 2))),
+    bus.scan().then((devices: Array<AddrType>) => console.log(JSON.stringify(devices, null, 2))),
+  ]);
+
+  // Initizalize devices
+  const weatherSensor = new Device(bus, 0x77);
+  const lightSensor = new Device(bus, 0x1d);
+
+  await weatherSensor.writeByte(0x23, 0b1 | 0b100);
+  await lightSensor.writeByte(0x25, 0x0f);
+
+  return Promise.all([
+    weatherSensor.readWord(0x50),
+    weatherSensor.readWord(0x52),
+    lightSensor.readWord(0x30),
+  ])
+    .then(([temperature, pressure, light]: Array<WordType>) => {
+      console.log(`The temperature is ${temperature}`);
+      console.log(`The pressure is ${pressure}`);
+      console.log(`The light is ${light}`);
+    });
 };
 
 main()
@@ -64,18 +67,16 @@ main()
   });
 ```
 
-> File [./examples/index.js](./examples/index.js)
+> File [./examples/usage.js](./examples/usage.js)
 <!--/@-->
 
-For more information, consult the [API docs](https://github.com/AlejandroHerr/i2c-bus-promised/blob/master/API.md#bus)
+For more information, consult the [API docs](https://github.com/AlejandroHerr/i2c-bus-promised/blob/master/API.md)
 
-### Device
+### Extending Device
 
-Device is a class that abstracts an i2c device. The class is initialised with two arguments, `bus` and `device address`. Internally it will call the reciprocal methods on the bus object with it's address.
+However, you can also extend the `Device` to work with your i2c devices:
 
-However, it's main purposed is to be extended for different devices. As you can see in this example:
-
-<!--@snippet('./examples/device.js', { showSource: true })-->
+<!--@snippet('./examples/extendingDevice.js', { showSource: true })-->
 ```js
 // @flow
 /* eslint-disable no-console */
@@ -126,10 +127,24 @@ main()
   });
 ```
 
-> File [./examples/device.js](./examples/device.js)
+> File [./examples/extendingDevice.js](./examples/extendingDevice.js)
 <!--/@-->
 
 For more information, consult the [API docs](https://github.com/AlejandroHerr/i2c-bus-promised/blob/master/API.md#device)
+
+## Tests
+
+To run the tests just type:
+
+```bash
+yarn test
+```
+
+However it is recomended to run the `e2e` tests to ensure that everything works well.
+
+```bash
+BUS_NUMBER=1 yarn test:e2e
+```
 
 ### mock/createI2cBus
 
@@ -138,7 +153,6 @@ For more information, consult the [API docs](https://github.com/AlejandroHerr/i2
 <!--@snippet('./examples/tests.js', { showSource: true })-->
 ```js
 import { Bus } from '../src';
-import BusError from '../src/error/BusError';
 
 const BUS_NUMBER = 1;
 
@@ -171,15 +185,6 @@ const setup = async (busNumber) => {
 };
 
 describe('Bus', () => {
-  it('throws a bus error if cannot open the bus', async () => {
-    const bus = new Bus(45);
-
-    try {
-      await bus.open();
-    } catch (error) {
-      expect(error).toEqual(new BusError('Error opening i2c bus: '));
-    }
-  });
   describe('i2cFuncs', () => {
     it('calls the i2cBus function through the promise queue', async () => {
       const { bus, addToQueue, physicalBus } = await setup(BUS_NUMBER);
