@@ -32,21 +32,18 @@
     -   [writeI2cBlock][28]
     -   [sendByte][29]
 -   [BusError][30]
--   [Mocks][31]
-    -   [createI2cBus][32]
-    -   [i2cBus][33]
-    -   [Helpers][34]
-        -   [createIOError][35]
-        -   [createNotFoundError][36]
-    -   [Types][37]
-        -   [PhysicalBusErrorType][38]
-        -   [PhysicalBusMockType][39]
--   [Types][40]
-    -   [BitType][41]
-    -   [ByteType][42]
-    -   [WordType][43]
-    -   [CmdType][44]
-    -   [AddrType][45]
+-   [Types][31]
+    -   [BitType][32]
+    -   [ByteType][33]
+    -   [WordType][34]
+    -   [CmdType][35]
+    -   [AddrType][36]
+-   [Mocks][37]
+    -   [createI2cBus][38]
+    -   [i2cBus][39]
+    -   [Types][40]
+        -   [PhysicalBusErrorType][41]
+        -   [PhysicalBusMockType][42]
 
 ## Bus
 
@@ -56,13 +53,13 @@ to prevent multiple access to the i2c bus.
 
 **Parameters**
 
--   `busNumber` **[number][46]**  (optional, default `1`)
+-   `busNumber` **[number][43]**  (optional, default `1`)
 
 ### open
 
 Opens the bus connection
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### addToQueue
 
@@ -70,31 +67,31 @@ Adds operation to the promise queue. Do **not** call this function directly.
 
 **Parameters**
 
--   `fn` **[string][48]** 
--   `args` **...[Array][49]&lt;any>** 
+-   `fn` **[string][45]** 
+-   `args` **...[Array][46]&lt;any>** 
 
 
--   Throws **[BusError][50]** If the bus connection is not open
+-   Throws **[BusError][47]** If the bus connection is not open
 
-Returns **[Promise][47]&lt;any>** 
+Returns **[Promise][44]&lt;any>** 
 
 ### close
 
 Closes the bus connection
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### i2cFuncs
 
 Determines functionality of the bus/adapter
 
-Returns **[Promise][47]&lt;{}>** 
+Returns **[Promise][44]&lt;{}>** 
 
 ### scan
 
 Scans the I2C bus asynchronously for devices
 
-Returns **[Promise][47]&lt;[Array][49]&lt;[AddrType][51]>>** 
+Returns **[Promise][44]&lt;[Array][46]&lt;[AddrType][48]>>** 
 
 ### read
 
@@ -102,11 +99,11 @@ Plain i2c read
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `addr` **[AddrType][48]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### write
 
@@ -114,11 +111,11 @@ Plain i2c write
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `addr` **[AddrType][48]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### readByte
 
@@ -126,10 +123,10 @@ SMBus read byte
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `cmd` **[CmdType][53]** 
+-   `addr` **[AddrType][48]** 
+-   `cmd` **[CmdType][50]** 
 
-Returns **[Promise][47]&lt;[ByteType][54]>** 
+Returns **[Promise][44]&lt;[ByteType][51]>** 
 
 ### readWord
 
@@ -137,10 +134,10 @@ SMBus read word
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `cmd` **[CmdType][53]** 
+-   `addr` **[AddrType][48]** 
+-   `cmd` **[CmdType][50]** 
 
-Returns **[Promise][47]&lt;[WordType][55]>** 
+Returns **[Promise][44]&lt;[WordType][52]>** 
 
 ### readI2cBlock
 
@@ -148,12 +145,12 @@ SMBus read number of bytes to buffer
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `cmd` **[CmdType][53]** 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `addr` **[AddrType][48]** 
+-   `cmd` **[CmdType][50]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### receiveByte
 
@@ -161,9 +158,9 @@ SMBus receive a byte
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
+-   `addr` **[AddrType][48]** 
 
-Returns **[Promise][47]&lt;[ByteType][54]>** 
+Returns **[Promise][44]&lt;[ByteType][51]>** 
 
 ### writeByte
 
@@ -171,11 +168,11 @@ SMBus write a byte
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `cmd` **[CmdType][53]** 
--   `byte` **[ByteType][54]** 
+-   `addr` **[AddrType][48]** 
+-   `cmd` **[CmdType][50]** 
+-   `byte` **[ByteType][51]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### writeWord
 
@@ -183,11 +180,11 @@ SMBus write a word
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `cmd` **[CmdType][53]** 
--   `word` **[WordType][55]** 
+-   `addr` **[AddrType][48]** 
+-   `cmd` **[CmdType][50]** 
+-   `word` **[WordType][52]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### writeI2cBlock
 
@@ -195,12 +192,12 @@ SMBus write number of bytes from buffer
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `cmd` **[CmdType][53]** 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `addr` **[AddrType][48]** 
+-   `cmd` **[CmdType][50]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### sendByte
 
@@ -208,10 +205,10 @@ SMBus send a byte
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `byte` **[ByteType][54]** 
+-   `addr` **[AddrType][48]** 
+-   `byte` **[ByteType][51]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### writeQuick
 
@@ -219,10 +216,10 @@ SMBus write a single bit
 
 **Parameters**
 
--   `addr` **[AddrType][51]** 
--   `bit` **[BitType][56]** 
+-   `addr` **[AddrType][48]** 
+-   `bit` **[BitType][53]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ## Device
 
@@ -231,8 +228,8 @@ Represents an i2c device connected to the i2c bus.
 
 **Parameters**
 
--   `bus` **[Bus][57]** 
--   `address` **[number][46]** 
+-   `bus` **[Bus][54]** 
+-   `address` **[number][43]** 
 
 ### read
 
@@ -240,10 +237,10 @@ Plain i2c read
 
 **Parameters**
 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### write
 
@@ -251,10 +248,10 @@ Plain i2c write
 
 **Parameters**
 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### readByte
 
@@ -262,9 +259,9 @@ SMBus read byte
 
 **Parameters**
 
--   `cmd` **[CmdType][53]** 
+-   `cmd` **[CmdType][50]** 
 
-Returns **[Promise][47]&lt;[ByteType][54]>** 
+Returns **[Promise][44]&lt;[ByteType][51]>** 
 
 ### readWord
 
@@ -272,9 +269,9 @@ SMBus read word
 
 **Parameters**
 
--   `cmd` **[CmdType][53]** 
+-   `cmd` **[CmdType][50]** 
 
-Returns **[Promise][47]&lt;[WordType][55]>** 
+Returns **[Promise][44]&lt;[WordType][52]>** 
 
 ### readI2cBlock
 
@@ -282,17 +279,17 @@ SMBus read number of bytes to buffer
 
 **Parameters**
 
--   `cmd` **[CmdType][53]** 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `cmd` **[CmdType][50]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### receiveByte
 
 SMBus receive a byte
 
-Returns **[Promise][47]&lt;[ByteType][54]>** 
+Returns **[Promise][44]&lt;[ByteType][51]>** 
 
 ### writeQuick
 
@@ -300,9 +297,9 @@ SMBus write a single bit to the device's address
 
 **Parameters**
 
--   `bit` **[BitType][56]** 
+-   `bit` **[BitType][53]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### writeByte
 
@@ -310,10 +307,10 @@ SMBus write a byte to the device's address
 
 **Parameters**
 
--   `cmd` **[CmdType][53]** 
--   `byte` **[ByteType][54]** 
+-   `cmd` **[CmdType][50]** 
+-   `byte` **[ByteType][51]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### writeWord
 
@@ -321,10 +318,10 @@ SMBus write a word to the device's address
 
 **Parameters**
 
--   `cmd` **[CmdType][53]** 
--   `word` **[WordType][55]** 
+-   `cmd` **[CmdType][50]** 
+-   `word` **[WordType][52]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ### writeI2cBlock
 
@@ -332,11 +329,11 @@ SMBus write number of bytes from buffer to the device's address
 
 **Parameters**
 
--   `cmd` **[CmdType][53]** 
--   `length` **[number][46]** 
--   `buffer` **[Buffer][52]** 
+-   `cmd` **[CmdType][50]** 
+-   `length` **[number][43]** 
+-   `buffer` **[Buffer][49]** 
 
-Returns **[Promise][47]&lt;[number][46]>** 
+Returns **[Promise][44]&lt;[number][43]>** 
 
 ### sendByte
 
@@ -344,9 +341,9 @@ SMBus send a byte to the device's address
 
 **Parameters**
 
--   `byte` **[ByteType][54]** 
+-   `byte` **[ByteType][51]** 
 
-Returns **[Promise][47]&lt;void>** 
+Returns **[Promise][44]&lt;void>** 
 
 ## BusError
 
@@ -356,79 +353,9 @@ Class representing an error ocurred inside the Bus.
 
 **Parameters**
 
--   `message` **[string][48]** 
--   `code` **[string][48]** 
--   `causeError` **[Error][58]?**  (optional, default `null`)
-
-## Mocks
-
-Customizable mock of the underliying `i2c-bus` library to mock the physical i2c device
-
-
-### createI2cBus
-
-Mock to import `i2c-bus` library
-
-**Parameters**
-
--   `physicalBus` **[PhysicalBusMockType][59]** 
-
-Returns **{open: function (busNumber: [number][46], cb: [Function][60]): [i2cBus][61]}** 
-
-### i2cBus
-
-i2cBus mock
-
-**Parameters**
-
--   `physicalBus` **[PhysicalBusMockType][59]** 
--   `busNumber` **[number][46]**  (optional, default `1`)
-
-### Helpers
-
-
-
-
-#### createIOError
-
-Function that creates an error for I/O erros
-(i.e device not available)
-
-Returns **[PhysicalBusErrorType][62]** 
-
-#### createNotFoundError
-
-Function that creates an error for a bus not found
-(i.e bus number not available or nor configured)
-
-**Parameters**
-
--   `busNumber` **[number][46]** 
-
-Returns **[PhysicalBusErrorType][62]** 
-
-### Types
-
-
-
-
-#### PhysicalBusErrorType
-
-Type representing i2c-bus errors
-
-Type: any
-
-#### PhysicalBusMockType
-
-Type representing the data used to mock the i2c bus
-
-Type: {busNumber: [number][46], devices: {}, funcs: {}}
-
-**Properties**
-
--   `busNumber` **[number][46]** 
--   `devices` **{}** 
--   `funcs` **{}** 
+-   `message` **[string][45]** 
+-   `code` **[string][45]** 
+-   `causeError` **[Error][55]?**  (optional, default `null`)
 
 ## Types
 
@@ -445,25 +372,72 @@ Type: (`0` \| `1`)
 
 Byte-length number (0x00 - 0xff)
 
-Type: [number][46]
+Type: [number][43]
 
 ### WordType
 
 Byte-length number (0x0000 - 0xffff)
 
-Type: [number][46]
+Type: [number][43]
 
 ### CmdType
 
 Byte-length number (0x00 - 0xff)
 
-Type: [number][46]
+Type: [number][43]
 
 ### AddrType
 
 Byte-length number (0x00 - 0xff)
 
-Type: [number][46]
+Type: [number][43]
+
+## Mocks
+
+Customizable mock of the underliying `i2c-bus` library to mock the physical i2c device
+
+
+### createI2cBus
+
+Mock to import `i2c-bus` library
+
+**Parameters**
+
+-   `physicalBus` **[PhysicalBusMockType][56]** 
+
+Returns **{open: function (busNumber: [number][43], cb: [Function][57]): [i2cBus][58]}** 
+
+### i2cBus
+
+i2cBus mock
+
+**Parameters**
+
+-   `physicalBus` **[PhysicalBusMockType][56]** 
+-   `busNumber` **[number][43]**  (optional, default `1`)
+
+### Types
+
+
+
+
+#### PhysicalBusErrorType
+
+Type representing i2c-bus errors
+
+Type: any
+
+#### PhysicalBusMockType
+
+Type representing the data used to mock the i2c bus
+
+Type: {busNumber: [number][43], devices: {}, funcs: {}}
+
+**Properties**
+
+-   `busNumber` **[number][43]** 
+-   `devices` **{}** 
+-   `funcs` **{}** 
 
 [1]: #bus
 
@@ -525,66 +499,58 @@ Type: [number][46]
 
 [30]: #buserror
 
-[31]: #mocks
+[31]: #types
 
-[32]: #createi2cbus
+[32]: #bittype
 
-[33]: #i2cbus
+[33]: #bytetype
 
-[34]: #helpers
+[34]: #wordtype
 
-[35]: #createioerror
+[35]: #cmdtype
 
-[36]: #createnotfounderror
+[36]: #addrtype
 
-[37]: #types
+[37]: #mocks
 
-[38]: #physicalbuserrortype
+[38]: #createi2cbus
 
-[39]: #physicalbusmocktype
+[39]: #i2cbus
 
 [40]: #types-1
 
-[41]: #bittype
+[41]: #physicalbuserrortype
 
-[42]: #bytetype
+[42]: #physicalbusmocktype
 
-[43]: #wordtype
+[43]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[44]: #cmdtype
+[44]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[45]: #addrtype
+[45]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[46]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[46]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[47]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[47]: #buserror
 
-[48]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[48]: #addrtype
 
-[49]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[49]: https://nodejs.org/api/buffer.html
 
-[50]: #buserror
+[50]: #cmdtype
 
-[51]: #addrtype
+[51]: #bytetype
 
-[52]: https://nodejs.org/api/buffer.html
+[52]: #wordtype
 
-[53]: #cmdtype
+[53]: #bittype
 
-[54]: #bytetype
+[54]: #bus
 
-[55]: #wordtype
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[56]: #bittype
+[56]: #physicalbusmocktype
 
-[57]: #bus
+[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
-
-[59]: #physicalbusmocktype
-
-[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
-
-[61]: #i2cbus
-
-[62]: #physicalbuserrortype
+[58]: #i2cbus

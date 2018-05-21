@@ -12,7 +12,7 @@ whitelist: &whitelist
     - lib/*
     - node_modules/*
     - src/*
-    - test/*
+    - tests/*
     - .babelrc
     - .eslintignore
     - .eslintrc.js

@@ -35,7 +35,8 @@
     "flow:install": "flow-typed install --overwrite || true",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
     "semantic-release": "semantic-release -e ./release.config.js",
-    "test": "BABEL_DISABLE_CACHE=1 jest",
+    "test": "BABEL_DISABLE_CACHE=1 jest \"tests\\/[^\\/]+.+\\.spec\\.js$\"",
+    "test:e2e": "yarn jest \"tests\\/[^\\/]+.+\\.e2e\\.js$\"",
     "test:coverage": "yarn jest --coverage",
     "test:watch": "yarn test --watch"
   },
@@ -92,6 +93,6 @@
       "src/**/*",
       "!src/mock/**"
     ],
-    "testRegex": "src\\/[^\\/]+.+\\.spec\\.js$"
+    "testMatch": ["**/?(*.)(spec|test|e2e).js?(x)"]
   }
 }

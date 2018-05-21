@@ -50,26 +50,10 @@ export default class Bus {
   addToQueue(fn: string, ...args: Array<*>): Promise<*> {
     return this.queue.add(() => {
       if (!this.bus) {
-        throw new BusError('Bus is not open', ERROR_CODES.NOT_OPEN);
+        throw new BusError('Bus is not open', ERROR_CODES.BUS_NOT_OPEN);
       }
 
-      return this.bus[fn](...args)
-        .catch((error: Error) => {
-          // $FlowFixMe
-          if (!error.cause || !(error.cause instanceof Error)) {
-            throw error;
-          }
-          // $FlowFixMe
-          if (error.errno && error.errno === -2) {
-            throw new BusError('i2c bus not found', ERROR_CODES.NOT_FOUND, error.cause);
-          }
-          // $FlowFixMe
-          if (error.errno && error.errno === 121) {
-            throw new BusError('i2c bus IO error', ERROR_CODES.IO_ERROR, error.cause);
-          }
-
-          throw new BusError(error.message, ERROR_CODES.GENERIC, error.cause);
-        });
+      return this.bus[fn](...args);
     });
   }
 

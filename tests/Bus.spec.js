@@ -1,10 +1,11 @@
-import Bus from './Bus';
-import BusError from './error/BusError';
+import Bus from '../src/Bus';
+import BusError from '../src/error/BusError';
+import * as ERROR_CODES from '../src/error/codes';
 
 const BUS_NUMBER = 1;
 
 jest.mock('i2c-bus', () => {
-  const createI2cBus = require('./mock/createI2cBus').default; // eslint-disable-line global-require
+  const createI2cBus = require('../src/mock/createI2cBus').default; // eslint-disable-line global-require
 
   return createI2cBus({
     busNumber: 1,
@@ -32,13 +33,17 @@ const setup = async (busNumber) => {
 };
 
 describe('Bus', () => {
-  it('throws a bus error if cannot open the bus', async () => {
-    const bus = new Bus(45);
+  it('should throw a BusError when the i2c bus is not open', async () => {
+    const bus = new Bus(BUS_NUMBER);
 
     try {
-      await bus.open();
+      await bus.addToQueue('func');
     } catch (error) {
-      expect(error).toEqual(new BusError('Error opening i2c bus: '));
+      const expectedError = new BusError('Bus is not open', ERROR_CODES.BUS_NOT_OPEN);
+
+      expect(error).toEqual(expectedError);
+      expect(error.code).toBe(expectedError.code);
+      expect(error.causeError).toBeNull();
     }
   });
   describe('i2cFuncs', () => {

@@ -1,8 +1,8 @@
-import Bus from './Bus';
-import Device from './Device';
+import Bus from '../src/Bus';
+import Device from '../src/Device';
 
 jest.mock('i2c-bus', () => {
-  const createI2cBus = require('./mock/createI2cBus').default; // eslint-disable-line global-require
+  const createI2cBus = require('../src/mock/createI2cBus').default; // eslint-disable-line global-require
 
   return createI2cBus({ busNumber: 1, devices: { 0x01: Buffer.from([]) } });
 });
