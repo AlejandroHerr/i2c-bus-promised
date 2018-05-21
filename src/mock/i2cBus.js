@@ -1,18 +1,21 @@
 // @flow
 /* eslint-disable flowtype/no-weak-types */
-import { createIOError, createNotFoundError } from './helpers';
-
 import type { AddrType, CmdType, BitType, ByteType, WordType } from '../types';
 import type { PhysicalBusMockType } from './types';
 
 const checkConnection = (physicalBus: PhysicalBusMockType, busNumber: number, addr?: AddrType) => {
   if (busNumber !== physicalBus.busNumber) {
-    const error = createNotFoundError(busNumber);
+    const error = new Error(`ENOENT: no such file or directory, open '/dev/i2c-${1}'`);
+    // $FlowFixMe
+    error.code = 'ENOENT';
 
     throw error;
   }
+
   if (addr && !physicalBus.devices[addr]) {
-    const error = createIOError();
+    const error = new Error('EREMOTEIO: remote I/O error, read');
+    // $FlowFixMe
+    error.code = 'EREMOTEIO';
 
     throw error;
   }
