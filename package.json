@@ -1,6 +1,6 @@
 {
   "name": "i2c-bus-promised",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Promised wrapper for i2c-bus",
   "keywords": [
     "i2c",
@@ -93,6 +93,8 @@
       "src/**/*",
       "!src/mock/**"
     ],
-    "testMatch": ["**/?(*.)(spec|test|e2e).js?(x)"]
+    "testMatch": [
+      "**/?(*.)(spec|test|e2e).js?(x)"
+    ]
   }
 }
