@@ -8,10 +8,6 @@ toc:
     children:
       - createI2cBus
       - i2cBus
-      - name: Helpers
-        children: 
-          - createIOError
-          - createNotFoundError
       - name: Types
         children: 
           - PhysicalBusErrorType
