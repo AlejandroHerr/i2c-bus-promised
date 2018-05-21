@@ -54,7 +54,7 @@ module.exports = {
     'flowtype/use-flow-type': 1,
     'flowtype/valid-syntax': 1,
     'flowtype-errors/show-errors': 2,
-    'no-warning-comments': [1, { "terms": ["$FlowFixMe"], "location": "anywhere" }],
+    'no-warning-comments': [1, { "terms": ["$FlowFixMe", "TODO"], "location": "anywhere" }],
   },
   plugins: [
     'flowtype',
