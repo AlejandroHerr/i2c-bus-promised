@@ -112,7 +112,7 @@ workflows:
             - checkout
       - gen_docs:
           requires:
-            - build
+            - checkout
       - release:
           requires:
             - lint
