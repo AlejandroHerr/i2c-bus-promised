@@ -110,15 +110,9 @@ workflows:
       - build:
           requires:
             - checkout
-          filters:
-            branches:
-              only: master
       - gen_docs:
           requires:
             - build
-          filters:
-            branches:
-              only: master
       - release:
           requires:
             - lint
