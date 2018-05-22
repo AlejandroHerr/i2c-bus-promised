@@ -1,7 +1,7 @@
 {
   "name": "i2c-bus-promised",
   "version": "1.1.2",
-  "description": "Promised wrapper for i2c-bus",
+  "description": "Bus and Device classes for i2c-bus, with promised functions.",
   "keywords": [
     "i2c",
     "i2c-bus",
