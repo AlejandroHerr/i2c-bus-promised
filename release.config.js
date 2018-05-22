@@ -13,29 +13,13 @@ module.exports = {
       { type: 'release', release: 'major' },
     ],
   },
-  generateNotes: {
-    preset: 'angular',
-    parserOpts: {
-      headerPattern: /^(?::([\w-]*):)?\s*(\w*):\s*(.*)$/,
-      headerCorrespondence: [
-        'emoji',
-        'tag',
-        'message',
-      ],
-    },
-  },
   verifyConditions: [
-    '@semantic-release/changelog',
     '@semantic-release/npm',
     '@semantic-release/git',
     '@semantic-release/github',
   ],
   getLastRelease: '@semantic-release/npm',
   prepare: [
-    {
-      path: '@semantic-release/changelog',
-      changelogFile: 'CHANGELOG.md',
-    },
     '@semantic-release/npm',
     {
       path: '@semantic-release/git',
