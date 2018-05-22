@@ -30,7 +30,7 @@
     "docs": "yarn docs:readme && yarn docs:api",
     "docs:api": "documentation build src/** -f md -o API.md --config documentation.yml",
     "docs:readme": "yarn mos",
-    "example": "NODE_PATH=./src node -r babel-register -r babel-polyfill examples/index.js",
+    "example": "babel-node examples/index.js",
     "flow": "flow check",
     "flow:install": "flow-typed install --overwrite || true",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
@@ -41,12 +41,11 @@
     "test:watch": "yarn test --watch"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
-    "babel-register": "^6.26.0",
     "documentation": "^7.0.0",
     "eslint": "^4.18.0",
     "eslint-config-airbnb-base": "^12.1.0",
