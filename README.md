@@ -1,8 +1,8 @@
-# i2c-bus-promised [![CircleCI](https://circleci.com/gh/AlejandroHerr/i2c-bus-promised/tree/master.svg?style=svg)](https://circleci.com/gh/AlejandroHerr/scroll-phat-hd.js/tree/development)
+# i2c-bus-promised [![CircleCI](https://circleci.com/gh/AlejandroHerr/i2c-bus-promised/tree/master.svg?style=svg)](https://circleci.com/gh/AlejandroHerr/scroll-phat-hd.js/tree/development) [![Greenkeeper badge](https://badges.greenkeeper.io/AlejandroHerr/i2c-bus-promised.svg)](https://greenkeeper.io/)
 
 <!--@shields.flatSquare('deps','devDeps')-->
+[![dependency status](https://img.shields.io/david/AlejandroHerr/i2c-bus-promised/master.svg?style=flat-square)](https://david-dm.org/AlejandroHerr/i2c-bus-promised/master) [![devDependency status](https://img.shields.io/david/dev/AlejandroHerr/i2c-bus-promised/master.svg?style=flat-square)](https://david-dm.org/AlejandroHerr/i2c-bus-promised/master#info=devDependencies)
 <!--/@-->
-[![CircleCI](https://circleci.com/gh/AlejandroHerr/i2c-bus-promised.svg?style=svg)](https://circleci.com/gh/AlejandroHerr/i2c-bus-promised) [![Greenkeeper badge](https://badges.greenkeeper.io/AlejandroHerr/i2c-bus-promised.svg)](https://greenkeeper.io/)
 
 Wrapper for [i2c-bus](https://github.com/fivdi/i2c-bus), with promised functions.
 
