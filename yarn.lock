@@ -3358,12 +3358,12 @@ https-proxy-agent@^2.2.0:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
-i2c-bus@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/i2c-bus/-/i2c-bus-3.2.0.tgz#e0d8db012837100a5aa671716365b63b10b83c37"
+i2c-bus@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/i2c-bus/-/i2c-bus-4.0.2.tgz#3deec255f6330b7e375d0ea188f5beeddd531506"
   dependencies:
     bindings "^1.3.0"
-    nan "^2.10.0"
+    nan "^2.11.1"
 
 iconv-lite@0.4.19:
   version "0.4.19"
@@ -4946,7 +4946,11 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@^2.10.0, nan@^2.9.2:
+nan@^2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
+
+nan@^2.9.2:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
