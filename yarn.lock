@@ -5273,9 +5273,10 @@ p-map@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.2.0.tgz#e4e94f311eabbc8633a1e79908165fca26241b6b"
 
-p-queue@^2.3.0:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/p-queue/-/p-queue-2.4.2.tgz#03609826682b743be9a22dba25051bd46724fc34"
+p-queue@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/p-queue/-/p-queue-3.1.0.tgz#08e5f52a9f37ddd76bb7c58036362a11c27febbf"
+  integrity sha512-kFa39NE4N0+fua9kdI/w8FPB0Gmv0lenS+2FQ7J/8dL4hbnfk1AqXSZJXuUKI2HL1GMzzyPSepwGKqsTmP2dDQ==
 
 p-reduce@^1.0.0:
   version "1.0.0"
